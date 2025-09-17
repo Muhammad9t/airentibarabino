@@ -1,0 +1,190 @@
+<script setup>
+    import Navbar from '@/Components/Airentibarabino/Header.vue';
+    import Footer from '@/Components/Airentibarabino/Footer.vue';
+    import NavbarMobile from '@/Components/Airentibarabino/NavbarMobile.vue';
+    import Search from '@/Components/Airentibarabino/Search.vue';
+    import LangSwitcher from '@/Components/Airentibarabino/LanguageSwitcher.vue';
+    import ScrollToTop from '@/Components/Airentibarabino/ScrollToTop.vue';
+    import MainSlider from '@/Components/Airentibarabino/MainSlider.vue';
+    import { Head, Link } from '@inertiajs/vue3';
+</script>
+
+<template>
+    <Head title="Airentibarabino" />
+    <div class="preloader">
+      <img
+        class="preloader__image"
+        width="60"
+        src="/images/loader.gif"
+        alt=""
+      />
+    </div>
+    <div class="page-wrapper">
+      <Navbar />
+
+        <MainSlider />
+        <slot />
+
+      <Footer />
+    </div>
+
+    <NavbarMobile />
+
+    <Search />
+
+    <ScrollToTop />
+
+    <LangSwitcher />
+</template>
+
+<style>
+    .team-flip-card {
+        background: transparent;
+        width: 100%;
+        height: 520px;
+        perspective: 1200px;
+        max-width: 400px;
+        margin: 0 auto;
+        display: inline-block;
+    }
+    .team-flip-card-inner {
+        position: relative;
+        width: 100%;
+        height: 100%;
+        transition: transform 0.7s cubic-bezier(0.4, 2.08, 0.55, 0.44);
+        transform-style: preserve-3d;
+    }
+    .team-flip-card:hover .team-flip-card-inner,
+    .team-flip-card:focus-within .team-flip-card-inner {
+        transform: rotateY(180deg);
+    }
+    .team-flip-card-front,
+    .team-flip-card-back {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        backface-visibility: hidden;
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+    .team-flip-card-front img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        object-position: center 20%;
+    }
+    .team-flip-card-back {
+        background: #db3d32;
+        color: #fff;
+        transform: rotateY(180deg);
+        padding: 2rem 1.5rem;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+    .team-flip-card-back h3 {
+        font-size: 1.7rem;
+        font-weight: 700;
+        margin-bottom: 0.5rem;
+        color: #fff;
+    }
+    .team-flip-card-back p {
+        font-size: 1rem;
+        margin-bottom: 0.7rem;
+    }
+    .team-flip-card-back .linkedin-icon {
+        margin-top: 1.2rem;
+        color: #fff;
+        font-size: 1.5rem;
+        display: inline-block;
+        transition: color 0.2s;
+    }
+    .team-flip-card-back .linkedin-icon:hover {
+        color: #000;
+    }
+    /* Professional Card Styles */
+    .professional-card {
+        background: #fff;
+        border-radius: 18px;
+        box-shadow: 0 4px 24px rgba(0, 0, 0, 0.08);
+        padding: 2.5rem 2rem 2rem 2rem;
+        margin-bottom: 2rem;
+        transition: box-shadow 0.2s;
+        border: none;
+        position: relative;
+    }
+    .professional-card:hover {
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.14);
+    }
+    .professional-card .section-title h2 {
+        font-size: 1.6rem;
+        font-weight: 700;
+        margin-bottom: 1.2rem;
+        letter-spacing: 0.01em;
+    }
+    .professional-card .why-choose-one__points li {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1.1rem;
+        font-size: 1.08rem;
+    }
+    .professional-card .icon {
+        color: #d32f2f;
+        font-size: 1.2rem;
+        margin-right: 0.7rem;
+    }
+    .professional-card .text p {
+        margin: 0;
+        font-weight: 500;
+        color: #222;
+    }
+    .professional-card hr {
+        border: none;
+        border-top: 1px solid #eee;
+        margin: 2rem 0 1.5rem 0;
+    }
+    .professional-card .thm-btn {
+        background: #db3d32;
+        color: #fff;
+        border-radius: 4px;
+        margin-top: auto;
+        padding: 0.6rem 1.2rem;
+        max-width: 160px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.02em;
+        font-size: 1rem;
+        border: none;
+        box-shadow: none;
+        display: inline-block;
+        text-align: center;
+        transition: background 0.2s;
+    }
+    .professional-card .thm-btn:hover {
+        background: #b72c22;
+        color: #fff;
+    }
+
+    /* Make all cards in the row the same height */
+    .why-choose-one .row {
+        display: flex;
+        flex-wrap: wrap;
+    }
+    .why-choose-one .col-xl-6 {
+        display: flex;
+        flex-direction: column;
+    }
+    .professional-card {
+        flex: 1 1 auto;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+    }
+
+</style>
