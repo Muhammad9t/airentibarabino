@@ -1,9 +1,9 @@
 <script setup>
-    import FrontendLayout from '@/Layouts/FrontendLayout.vue';
+    import FrontEndLayout from '@/Layouts/FrontEndLayout.vue';
 </script>
 
 <template>
-    <FrontendLayout>
+    <FrontEndLayout>
 
         <section>
             <div class="container">
@@ -142,6 +142,5 @@
             </div>
         </section>
 
-    </FrontendLayout>
-
+    </FrontEndLayout>
 </template>

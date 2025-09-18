@@ -3,13 +3,11 @@
 import { usePage } from '@inertiajs/vue3';
 import { computed } from 'vue'
 
-
 const page = usePage();
 
 const componentName = computed(() => {
     const parts = page.component.split('/')
-    console.log(parts[parts.length - 1]);
-  return parts[parts.length - 1]
+    return parts[parts.length - 1]
 });
 
 </script>

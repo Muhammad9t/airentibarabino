@@ -1,9 +1,9 @@
 <script setup>
-    import FrontendLayout from '@/Layouts/FrontendLayout.vue';
+    import FrontEndLayout from '@/Layouts/FrontEndLayout.vue';
 </script>
 
 <template>
-    <FrontendLayout>
+    <FrontEndLayout>
 
         <section class="py-5 mt-5">
             <div class="container">
@@ -48,5 +48,5 @@
             </div>
         </section>
 
-    </FrontendLayout>
+    </FrontEndLayout>
 </template>

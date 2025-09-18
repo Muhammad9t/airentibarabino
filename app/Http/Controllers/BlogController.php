@@ -40,7 +40,6 @@ class BlogController extends Controller
             $path = $request->file('image')->store('blogs', 'public');
             $data['image'] = "/storage/" . $path;
         }
-        dd($data);
 
         Blog::create($data);
 
