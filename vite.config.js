@@ -7,6 +7,7 @@ export default defineConfig({
         laravel({
             input: 'resources/js/app.js',
             refresh: true,
+            buildDirectory: 'build',
         }),
         vue({
             template: {
@@ -17,4 +18,10 @@ export default defineConfig({
             },
         }),
     ],
+    build: {
+        outDir: 'public/build',
+        manifest: true,
+        emptyOutDir: true,
+    },
 });
+

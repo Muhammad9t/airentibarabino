@@ -44,7 +44,7 @@ const componentName = computed(() => {
             <div
                 class="image-layer"
                 style="
-                background-image: url(/images/contact/Torino-A&B_To_DSC1473.jpeg);
+                background-image: url(/images/contact/Torino-AB_To_DSC1473.jpeg);
                 "
             ></div>
             <!-- /.video-background -->

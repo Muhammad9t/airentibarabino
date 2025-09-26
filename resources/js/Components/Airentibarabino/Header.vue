@@ -10,6 +10,10 @@ const componentName = computed(() => {
     return parts[parts.length - 1]
 });
 
+const services =  computed(() => page.props.services ?? [])
+const service =  computed(() => page.props.service ?? [])
+const settings = computed(() => page.props.settings)
+
 </script>
 
 <template>
@@ -17,12 +21,19 @@ const componentName = computed(() => {
         <nav class="main-menu clearfix">
             <div class="main-menu-wrapper">
                 <div class="main-menu-wrapper__logo">
-                    <a :href="route('home')">
+                    <!-- <a :href="route('home')">
 
                     <img
                         src="/images/resources/logo-1.png"
                         style="width: 100px"
                         alt=""
+                    />
+                    </a> -->
+                    <a :href="route('home')">
+                        <img
+                        :src="settings?.logo ? '/storage/' + settings.logo : '/images/resources/logo-1.png'"
+                        style="width: 100px"
+                        alt="Logo"
                     />
                     </a>
                 </div>
@@ -40,12 +51,10 @@ const componentName = computed(() => {
                     <li class="dropdown">
                         <a href="#" data-i18n-key="header_services">Services</a>
                         <ul>
-                        <li>
-                            <a :href="route('companies')" data-i18n-key="header_companies"
-                            >Companies</a
-                            >
+                        <li v-for="item in services" :key="item.id">
+                            <a :href="route('services.show', item.slug)">{{ item.name }}</a>
                         </li>
-                        <li>
+                        <!-- <li>
                             <a
                             :href="route('for_the_non_profit')"
                             data-i18n-key="header_non_profit"
@@ -65,7 +74,7 @@ const componentName = computed(() => {
                             data-i18n-key="header_foreign_companies"
                             >Foreign Companies</a
                             >
-                        </li>
+                        </li> -->
                         </ul>
                     </li>
                     <li class="">
@@ -106,11 +115,10 @@ const componentName = computed(() => {
             <div class="main-menu-wrapper">
                 <div class="main-menu-wrapper__logo">
                     <a :href="route('home')">
-
-                    <img
-                        src="/images/resources/logo-1.png"
+                        <img
+                        :src="settings?.logo ? '/storage/' + settings.logo : '/images/resources/logo-1.png'"
                         style="width: 100px"
-                        alt=""
+                        alt="Logo"
                     />
                     </a>
                 </div>
@@ -128,32 +136,9 @@ const componentName = computed(() => {
                     <li class="dropdown">
                         <a href="#" data-i18n-key="header_services">Services</a>
                         <ul>
-                        <li>
-                            <a :href="route('companies')" data-i18n-key="header_companies"
-                            >Companies</a
-                            >
-                        </li>
-                        <li>
-                            <a
-                            :href="route('for_the_non_profit')"
-                            data-i18n-key="header_non_profit"
-                            >Non-Profit</a
-                            >
-                        </li>
-                        <li>
-                            <a
-                            :href="route('for_families_and_individuals')"
-                            data-i18n-key="header_individuals_and_families"
-                            >Individuals and Families</a
-                            >
-                        </li>
-                        <li>
-                            <a
-                            :href="route('foreign_companies')"
-                            data-i18n-key="header_foreign_companies"
-                            >Foreign Companies</a
-                            >
-                        </li>
+                            <li v-for="item in services" :key="item.id">
+                                <a :href="route('services.show', item.slug)">{{ item.name }}</a>
+                            </li>
                         </ul>
                     </li>
                     <li class="">
@@ -220,7 +205,27 @@ const componentName = computed(() => {
             </div>
         </section>
 
-        <section v-if="componentName == 'Companies'" class="page-header">
+        <section v-if="componentName == 'Contact'" class="page-header">
+            <div
+            class="page-header-bg"
+            style="background-image: url(/images/backgrounds/contact.png)"
+            ></div>
+            <div class="container">
+            <div class="page-header__inner">
+                <ul class="thm-breadcrumb list-unstyled">
+                <li>
+                    <a :href="route('home')" data-i18n-key="header_home">Home</a>
+                </li>
+                <li class="notranslate" data-i18n-key="header_contact">
+                    Contact
+                </li>
+                </ul>
+                <h2 data-i18n-key="header_contact">Contact</h2>
+            </div>
+            </div>
+        </section>
+
+        <section v-if="componentName == 'ServiceDetails'" class="page-header">
             <div
             class="page-header-bg"
             style="
@@ -239,30 +244,36 @@ const componentName = computed(() => {
                     >Home</a
                     >
                 </li>
-                <li data-i18n-key="companies_title">Companies</li>
+                <li >{{ service.name }}</li>
                 </ul>
-                <h2 data-i18n-key="companies_title">Companies</h2>
+                <h2 >{{ service.name }}</h2>
             </div>
             </div>
         </section>
 
-        <section v-if="componentName == 'Contact'" class="page-header">
+        <section v-if="componentName == 'Companies'" class="page-header">
             <div
-            class="page-header-bg"
-            style="background-image: url(/images/backgrounds/contact.png)"
-            ></div>
-            <div class="container">
-            <div class="page-header__inner">
-                <ul class="thm-breadcrumb list-unstyled">
-                <li>
-                    <a :href="route('home')" data-i18n-key="header_home">Home</a>
-                </li>
-                <li class="notranslate" data-i18n-key="header_contact">
-                    Contact
-                </li>
-                </ul>
-                <h2 data-i18n-key="header_contact">Contact</h2>
-            </div>
+                class="page-header-bg"
+                style="
+                    background-image: url(/images/backgrounds/companies-page.png);
+                "
+                ></div>
+                <div class="container">
+                <div class="page-header__inner">
+                    <ul class="thm-breadcrumb list-unstyled">
+                    <li>
+                        <a
+                        href="index.html"
+                        class="notranslate"
+                        id="header-menu-contact-link-bread"
+                        data-i18n-key="header_home"
+                        >Home</a
+                        >
+                    </li>
+                    <li data-i18n-key="companies_title">Companies</li>
+                    </ul>
+                    <h2 data-i18n-key="companies_title">Companies</h2>
+                </div>
             </div>
         </section>
 
@@ -324,7 +335,7 @@ const componentName = computed(() => {
             </div>
         </section>
 
-        <section v-if="componentName == 'ForeignComapnies'" class="page-header">
+        <section v-if="componentName == 'ForeignCompanies'" class="page-header">
             <div
             class="page-header-bg"
             style="

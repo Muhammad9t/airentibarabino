@@ -51,6 +51,12 @@ const showingNavigationDropdown = ref(false);
                                 >
                                     Blogs
                                 </NavLink>
+                                <NavLink
+                                    :href="route('settings.edit')"
+                                    :active="route().current('settings.edit')"
+                                >
+                                    Settings
+                                </NavLink>
                             </div>
                         </div>
 

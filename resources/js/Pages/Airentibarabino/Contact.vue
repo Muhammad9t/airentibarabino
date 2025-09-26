@@ -20,7 +20,7 @@
                             <div class="carousel-inner">
                                 <div class="carousel-item active" data-interval="10000">
                                 <img
-                                    src="/images/contact/Torino-A&B_To_DSC1473.jpeg"
+                                    src="/images/contact/Torino-AB_To_DSC1473.jpeg"
                                     class="d-block w-100"
                                     alt="..."
                                 />

@@ -8,7 +8,7 @@
         ></span>
 
         <div class="logo-box">
-          <a href="index.html" aria-label="logo image"
+          <a :href="route('home')" aria-label="logo image"
             ><img src="/images/resources/logo-1.png" width="155" alt=""
           /></a>
         </div>

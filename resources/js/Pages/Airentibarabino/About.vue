@@ -17,7 +17,7 @@
                         data-wow-delay="100ms"
                         data-wow-duration="1000ms"
                         >
-                        <img src="/images/contact/a&b-own.png" alt="" />
+                        <img src="/images/contact/ab-own.png" alt="" />
                         </div>
                     </li>
                     <li>
@@ -26,7 +26,7 @@
                         data-wow-delay="100ms"
                         data-wow-duration="1000ms"
                         >
-                        <img src="/images/contact/a&b2-own.png" alt="" />
+                        <img src="/images/contact/ab2-own.png" alt="" />
                         </div>
                     </li>
                     </ul>

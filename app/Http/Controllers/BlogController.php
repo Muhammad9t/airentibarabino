@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Blog;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
@@ -36,9 +37,16 @@ class BlogController extends Controller
             'description' => 'required|string',
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
         ]);
+
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('blogs', 'public');
             $data['image'] = "/storage/" . $path;
+        }
+
+        $data['slug'] = Str::slug($data['title']);
+        $count = Blog::where('slug', 'like', "{$data['slug']}%")->count();
+        if ($count > 0) {
+            $data['slug'] .= '-' . ($count + 1);
         }
 
         Blog::create($data);
@@ -83,6 +91,16 @@ class BlogController extends Controller
         }else {
             unset($data['image']);
         }
+        if (!empty($data['name'])) {
+            $newSlug = Str::slug($data['name']);
+
+            $count = Blog::where('slug', 'like', "{$newSlug}%")->where('id', '!=', $blog->id)->count();
+            if ($count > 0) {
+                $newSlug .= '-' . ($count + 1);
+            }
+
+            $data['slug'] = $newSlug;
+        }
         $blog->update($data);
 
         return redirect()->route('blogs.index')->with('success', 'Blog updated!');
@@ -98,5 +116,16 @@ class BlogController extends Controller
         }
         $blog->delete();
         return redirect()->route('blogs.index')->with('success', 'Blog deleted!');
+    }
+
+    /**
+     * Toggle the resource status
+     */
+    public function toggleStatus(Blog $blog)
+    {
+        $blog->status = $blog->status === 'active' ? 'inactive' : 'active';
+        $blog->save();
+
+        return back()->with('success', 'Blog status updated!');
     }
 }

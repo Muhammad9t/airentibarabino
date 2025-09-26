@@ -6,5 +6,11 @@ use Illuminate\Database\Eloquent\Model;
 
 class Blog extends Model
 {
-    protected $fillable = ['title', 'description', 'image'];
+    protected $fillable = ['title', 'slug', 'description', 'image', 'status'];
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
+
 }

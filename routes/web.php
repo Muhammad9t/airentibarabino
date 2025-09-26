@@ -1,10 +1,11 @@
 <?php
 
+use Inertia\Inertia;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\BlogController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ServiceController;
-use App\Http\Controllers\BlogController;
-use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
+use App\Http\Controllers\SettingController;
 
 Route::get('/', fn () => Inertia::render('Airentibarabino/Home'))->name('home');
 $pages = [
@@ -21,6 +22,8 @@ $pages = [
 foreach ($pages as $name => $component) {
     Route::get("/{$name}", fn () => Inertia::render("Airentibarabino/{$component}"))->name($name);
 }
+Route::get('/service/{service}', [ServiceController::class, 'show'])->name('services.show');
+
 
 Route::middleware(['auth', 'isAdmin'])->group(function () {
     Route::get('/dashboard', [ProfileController::class, 'counts'])->name('dashboard');
@@ -29,8 +32,14 @@ Route::middleware(['auth', 'isAdmin'])->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::resource('services', ServiceController::class);
+    Route::resource('services', ServiceController::class)->except(['show']);
+    Route::patch('/services/{service}/toggle-status', [ServiceController::class, 'toggleStatus'])->name('services.toggleStatus');
+
     Route::resource('blogs', BlogController::class);
+    Route::patch('/blogs/{blog}/toggle-status', [BlogController::class, 'toggleStatus'])->name('blogs.toggleStatus');
+
+    Route::get('/settings', [SettingController::class, 'edit'])->name('settings.edit');
+    Route::post('/settings/{setting}', [SettingController::class, 'update'])->name('settings.update');
 
 });
 

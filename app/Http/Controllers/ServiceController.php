@@ -2,8 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use Log;
 use App\Models\Service;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use Statickidz\GoogleTranslate;
 
 class ServiceController extends Controller
 {
@@ -33,8 +36,14 @@ class ServiceController extends Controller
         $data = $request->validate([
             'name' => 'required|string|max:255',
             'description' => 'nullable|string',
+            'status' => 'required|in:active,inactive'
         ]);
 
+        $data['slug'] = Str::slug($data['name']);
+        $count = Service::where('slug', 'like', "{$data['slug']}%")->count();
+        if ($count > 0) {
+            $data['slug'] .= '-' . ($count + 1);
+        }
         Service::create($data);
 
         return redirect()->route('services.index')->with('success', 'Service created!');
@@ -45,7 +54,9 @@ class ServiceController extends Controller
      */
     public function show(Service $service)
     {
-        dd($service);
+        return inertia('Airentibarabino/ServiceDetails', [
+            'service' => $service,
+        ]);
     }
 
     /**
@@ -64,8 +75,19 @@ class ServiceController extends Controller
         $data = $request->validate([
             'name' => 'nullable|string|max:255',
             'description' => 'nullable|string',
+            'status' => 'required|in:active,inactive'
         ]);
 
+        if (!empty($data['name'])) {
+            $newSlug = Str::slug($data['name']);
+
+            $count = Service::where('slug', 'like', "{$newSlug}%")->where('id', '!=', $service->id)->count();
+            if ($count > 0) {
+                $newSlug .= '-' . ($count + 1);
+            }
+
+            $data['slug'] = $newSlug;
+        }
         $service->update($data);
 
         return redirect()->route('services.index')->with('success', 'Service updated!');
@@ -78,5 +100,17 @@ class ServiceController extends Controller
     {
         $service->delete();
         return redirect()->route('services.index')->with('success', 'Service deleted!');
+    }
+
+    public function toggleStatus(Service $service)
+    {
+        $translator = new GoogleTranslate();
+        $italiano = $translator->translate('en', 'it', $service->name);
+        $francais = $translator->translate('en', 'fr', $service->name);
+        dd($italiano, $francais);
+        $service->status = $service->status === 'active' ? 'inactive' : 'active';
+        $service->save();
+
+        return back()->with('success', 'Service status updated!');
     }
 }

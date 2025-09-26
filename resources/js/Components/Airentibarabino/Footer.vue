@@ -1,3 +1,12 @@
+<script setup>
+import { usePage } from '@inertiajs/vue3'
+import { computed } from 'vue'
+
+const page = usePage()
+const settings = computed(() => page.props.settings)
+</script>
+
+
 <template>
     <footer class="site-footer mt-5">
         <div class="site-footer__top">
@@ -38,7 +47,7 @@
           <div class="container">
             <div class="site-footer__middle-inner">
               <div class="row">
-                <div
+                <!-- <div
                   class="col-xl-4 col-lg-4 wow fadeInUp"
                   data-wow-delay="100ms"
                 >
@@ -105,7 +114,64 @@
                       >
                     </h4>
                   </div>
+                </div> -->
+
+                <div class="col-xl-4 col-lg-4 wow fadeInUp" data-wow-delay="100ms">
+                    <div class="footer-widget__column footer-widget__contact">
+                        <h3 class="footer-widget__title" data-i18n-key="contact_turin">
+                            Contact
+                        </h3>
+                        <p class="footer-widget__contact-text text-white">
+                        {{ settings?.address_one }}
+                        </p>
+                        <h4 class="footer-widget__contact-email-phone">
+                        <a
+                            v-if="settings?.email_one"
+                            :href="`mailto:${settings.email_one}`"
+                            target="_blank"
+                            class="footer-widget__contact-email"
+                        >
+                            {{ settings.email_one }}
+                        </a>
+                        <a
+                            v-if="settings?.phone_one"
+                            :href="`tel:${settings.phone_one}`"
+                            class="footer-widget__contact-phone"
+                        >
+                            {{ settings.phone_one }}
+                        </a>
+                        </h4>
+                    </div>
                 </div>
+
+                <div class="col-xl-4 col-lg-4 wow fadeInUp" data-wow-delay="100ms">
+                    <div class="footer-widget__column footer-widget__contact">
+                        <h3 class="footer-widget__title" data-i18n-key="contact_turin">
+                            Contact
+                        </h3>
+                        <p class="footer-widget__contact-text text-white">
+                        {{ settings?.address_two }}
+                        </p>
+                        <h4 class="footer-widget__contact-email-phone">
+                        <a
+                            v-if="settings?.email_two"
+                            :href="`mailto:${settings.email_two}`"
+                            target="_blank"
+                            class="footer-widget__contact-email"
+                        >
+                            {{ settings.email_two }}
+                        </a>
+                        <a
+                            v-if="settings?.phone_two"
+                            :href="`tel:${settings.phone_two}`"
+                            class="footer-widget__contact-phone"
+                        >
+                            {{ settings.phone_two }}
+                        </a>
+                        </h4>
+                    </div>
+                </div>
+
                 <div
                   class="col-xl-4 col-lg-4 wow fadeInUp"
                   data-wow-delay="200ms"
@@ -124,7 +190,7 @@
                     >
                       <li>
                         <a
-                          href="companies"
+                          :href="route('companies')"
                           class="text-white"
                           data-i18n-key="footer_companies"
                           >Companies</a
@@ -132,7 +198,7 @@
                       </li>
                       <li>
                         <a
-                          href="for-then-non-profit"
+                          :href="route('for_the_non_profit')"
                           class="text-white notranslate"
                           data-i18n-key="footer_non_profit"
                           >Non-profit</a
@@ -140,7 +206,7 @@
                       </li>
                       <li>
                         <a
-                          href="for-families-and-individuals"
+                          :href="route('for_families_and_individuals')"
                           class="text-white"
                           data-i18n-key="footer_individuals_families"
                           >Individuals & Families</a
@@ -148,7 +214,7 @@
                       </li>
                       <li>
                         <a
-                          href="foreign-companies"
+                          :href="route('foreign_companies')"
                           class="text-white"
                           data-i18n-key="footer_foreign_companies"
                           >Foreign Companies</a

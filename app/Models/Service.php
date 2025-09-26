@@ -6,5 +6,10 @@ use Illuminate\Database\Eloquent\Model;
 
 class Service extends Model
 {
-    protected $fillable = ['name', 'description'];
+    protected $fillable = ['name', 'slug', 'description', 'status'];
+
+    public function getRouteKeyName()
+    {
+        return 'slug';
+    }
 }

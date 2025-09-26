@@ -4,22 +4,27 @@
     import { Head, useForm } from '@inertiajs/vue3'
     import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout.vue'
     import '../../../css/admin.css'
+    import { router } from '@inertiajs/vue3'
+    import { QuillEditor } from '@vueup/vue-quill'
+    import '@vueup/vue-quill/dist/vue-quill.snow.css'
 
     const showModal = ref(false);
     const isEditing = ref(false);
     const editingBlog = ref(null);
+    const editorKey = ref(0)
 
     const props = defineProps({
-    blogs: {
-        type: Array,
-        default: () => []
-    }
+        blogs: {
+            type: Array,
+            default: () => []
+        }
     })
 
     const form = useForm({
         title: '',
         description: '',
-        image: null
+        image: null,
+        status: ''
     })
 
     const search = ref('')
@@ -42,7 +47,14 @@
     function openAddModal() {
         isEditing.value = false
         editingBlog.value = null
+        form.defaults({
+            title: '',
+            description: '',
+            image: null,
+            status: 'active'
+        })
         form.reset()
+        editorKey.value++
         showModal.value = true
     }
 
@@ -54,9 +66,10 @@
             title: blog.title,
             description: blog.description,
             image: null,
+            status: blog.status
         })
         form.reset()
-
+        editorKey.value++
         showModal.value = true
     }
 
@@ -74,7 +87,7 @@
 
         if (isEditing.value && editingBlog.value) {
             form.transform((data) => ({ ...data, _method: 'PUT', }))
-            form.post(route('blogs.update', editingBlog.value.id), options)
+            form.post(route('blogs.update', editingBlog.value.slug), options)
         } else {
             form.post(route('blogs.store'), options)
         }
@@ -82,7 +95,7 @@
 
     function deleteBlog(blog) {
         if (confirm(`Are you sure you want to delete "${blog.title}" blog?`)) {
-            form.delete(route('blogs.destroy', blog.id), {
+            form.delete(route('blogs.destroy', blog.slug), {
                 preserveScroll: true,
                 onSuccess: () => {
                     const index = props.blogs.findIndex(b => b.id === blog.id)
@@ -95,6 +108,9 @@
         }
     }
 
+    function toggleStatus(blog) {
+        router.patch(route('blogs.toggleStatus', blog.slug))
+    }
 
 </script>
 
@@ -121,6 +137,7 @@
                                 <th>Title</th>
                                 <th>Description</th>
                                 <th>Date</th>
+                                <th>Status</th>
                                 <th>Actions</th>
                             </tr>
                         </thead>
@@ -131,11 +148,24 @@
                                     <img :src="blog.image" alt="Blog Image" width="80" class="rounded" />
                                 </td>
                                 <td>{{ blog.title }}</td>
-                                <td>{{ blog.description }}</td>
+                                <td v-html="blog.description"></td>
                                 <td>{{ new Date(blog.created_at).toLocaleDateString('en-GB').replace(/\//g, '-') }}</td>
                                 <td>
+                                    <span
+                                        class="px-3 py-1 rounded-full text-sm font-medium border"
+                                        :class="blog.status === 'active'
+                                            ? 'bg-blue-100 text-blue-600 border-blue-600'
+                                            : 'bg-red-100 text-red-600 border-red-600'"
+                                        >
+                                        {{ blog.status === 'active' ? 'Active' : 'Inactive' }}
+                                    </span>
+                                </td>
+                                <td>
                                     <button class="btn btn-sm btn-warning me-2" @click="openEditModal(blog)">Edit</button>
-                                    <button class="btn btn-sm btn-danger" @click.prevent="deleteBlog(blog)" >Delete</button>
+                                    <button class="btn btn-sm btn-danger me-2" @click.prevent="deleteBlog(blog)" >Delete</button>
+                                    <button class="btn btn-sm" :class="blog.status === 'active' ? 'btn-secondary' : 'btn-success'" @click="toggleStatus(blog)">
+                                    {{ blog.status === 'active' ? 'Deactivate' : 'Activate' }}
+                                </button>
                                 </td>
                             </tr>
                             <tr v-if="filteredBlogs.length === 0">
@@ -150,7 +180,7 @@
         </div>
 
         <div class="modal fade" tabindex="-1" :class="{ show: showModal }" style="display: block" v-if="showModal">
-            <div class="modal-dialog">
+            <div class="modal-dialog modal-xl">
                 <div class="modal-content">
                     <form @submit.prevent="submitForm">
                         <div class="modal-header">
@@ -165,7 +195,16 @@
 
                             <div class="mb-3">
                                 <label class="form-label">Description</label>
-                                <textarea v-model="form.description" rows="3" class="form-control" required></textarea>
+                                <QuillEditor
+                                    v-model:content="form.description"
+                                    content-type="html"
+                                    theme="snow"
+                                    style="height: 200px;"
+                                    :key="editorKey"
+                                />
+                                <div v-if="form.errors.description" class="text-danger small">
+                                    {{ form.errors.description }}
+                                </div>
                             </div>
 
                             <div class="mb-3">
@@ -186,6 +225,19 @@
                                     @change="handleFileUpload"
                                     :required="!isEditing"
                                 />
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label d-block">Status</label>
+                                <div>
+                                    <label class="me-3">
+                                        <input type="radio" value="active" v-model="form.status" /> Active
+                                    </label>
+                                    <label>
+                                        <input type="radio" value="inactive" v-model="form.status" /> Inactive
+                                    </label>
+                                </div>
+                                <div v-if="form.errors.status" class="text-danger small">{{ form.errors.status }}</div>
                             </div>
 
                         </div>

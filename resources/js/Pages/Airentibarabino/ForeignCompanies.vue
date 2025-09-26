@@ -10,7 +10,7 @@
                 <div class="row">
                     <div class="col-lg-12">
                         <div class="service-details__faq mt-4">
-                            <div class="accrodion-grp faq-one-accrodion" data-grp-name="faq-one-accrodion"s>
+                            <div class="accrodion-grp faq-one-accrodion" data-grp-name="faq-one-accrodion">
                                 <div class="accrodion">
                                     <div class="accrodion-title">
                                         <h4 data-i18n-key="foreign_companies_title">
