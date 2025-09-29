@@ -1,5 +1,8 @@
 <script setup>
     import { onMounted } from "vue";
+    import { useLanguage } from '../../Composables/useLanguage.js';
+
+    const { setLanguage: setVueLanguage, language } = useLanguage();
 
     const translations = {};
 
@@ -31,15 +34,17 @@
         await loadTranslations(lang);
     }
     translatePage(lang);
-    localStorage.setItem("language", lang);
+    setVueLanguage(lang); // Use the Vue composable to set language
     }
 
     onMounted(() => {
-    setLanguage("it");
+    // Get current language from localStorage or default to 'it'
+    const currentLang = localStorage.getItem('language') || 'it';
+    setLanguage(currentLang);
 
     const langSwitcher = document.getElementById("lang-switcher");
     if (langSwitcher) {
-        langSwitcher.value = "it";
+        langSwitcher.value = currentLang;
         langSwitcher.addEventListener("change", (event) => {
         setLanguage(event.target.value);
         });

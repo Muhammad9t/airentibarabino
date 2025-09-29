@@ -14,7 +14,9 @@ class Setting extends Model
         'email_one',
         'email_two',
         'address_one',
+        'city_one',
         'address_two',
+        'city_two',
         'footer_description',
     ];
 }

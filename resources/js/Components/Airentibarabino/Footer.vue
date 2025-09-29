@@ -118,11 +118,11 @@ const settings = computed(() => page.props.settings)
 
                 <div class="col-xl-4 col-lg-4 wow fadeInUp" data-wow-delay="100ms">
                     <div class="footer-widget__column footer-widget__contact">
-                        <h3 class="footer-widget__title" data-i18n-key="contact_turin">
-                            Contact
+                        <h3 class="footer-widget__title">
+                            {{ settings?.city_one }} Office
                         </h3>
                         <p class="footer-widget__contact-text text-white">
-                        {{ settings?.address_one }}
+                        {{ settings?.city_one }}, {{ settings?.address_one }}
                         </p>
                         <h4 class="footer-widget__contact-email-phone">
                         <a
@@ -146,11 +146,11 @@ const settings = computed(() => page.props.settings)
 
                 <div class="col-xl-4 col-lg-4 wow fadeInUp" data-wow-delay="100ms">
                     <div class="footer-widget__column footer-widget__contact">
-                        <h3 class="footer-widget__title" data-i18n-key="contact_turin">
-                            Contact
+                        <h3 class="footer-widget__title">
+                            {{ settings?.city_two }} Office
                         </h3>
                         <p class="footer-widget__contact-text text-white">
-                        {{ settings?.address_two }}
+                        {{ settings?.city_two }}, {{ settings?.address_two }}
                         </p>
                         <h4 class="footer-widget__contact-email-phone">
                         <a
@@ -232,7 +232,7 @@ const settings = computed(() => page.props.settings)
             <div class="row">
               <div class="col-xl-12">
                 <div class="site-footer__bottom-inner d-flex">
-                  <p class="site-footer__bottom-text text-white">© 2025</p>
+                  <p class="site-footer__bottom-text text-white">© {{ new Date().getFullYear() }}</p>
                   &nbsp;
                   <p
                     class="site-footer__bottom-text text-white notranslate"
@@ -242,7 +242,7 @@ const settings = computed(() => page.props.settings)
                   </p>
                   &nbsp;
                   <p class="site-footer__bottom-text text-white">
-                    <a href="https://www.outscalers.com/" class="text-primary">
+                    <a target="_blank" href="https://outscalers.com/" class="text-primary">
                       Outscalers</a
                     >
                   </p>

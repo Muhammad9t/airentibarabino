@@ -1,5 +1,9 @@
 <script setup>
     import FrontEndLayout from '@/Layouts/FrontEndLayout.vue';
+
+    const props = defineProps({
+        settings: Object
+    });
 </script>
 
 <template>
@@ -60,31 +64,26 @@
                             </div>
                         </div>
                         <div class="col-lg-12 p-4">
-                            <h3 data-i18n-key="torino_office">Our Torino Office</h3>
+                            <h3>La nostra sede di {{ settings?.city_one }}</h3>
                             <hr />
                             <div class="d-flex align-items-center">
                             <i class="fas fa-map-marker-alt text-primary"></i>
-                            &nbsp;<small data-i18n-key="torino_address"
-                                >Torino, Corso Vittorio Emanuele II 52</small
-                            >
+                            &nbsp;<small>{{ settings?.city_one }}, {{ settings?.address_one }}</small>
                             </div>
                             <div class="d-flex align-items-center">
                             <i class="fas fa-envelope text-primary"></i>
                             &nbsp;<small
                                 ><a
-                                href="https://mail.google.com/mail/?view=cm&fs=1&to=torino@airentiebarabino.com"
+                                :href="`https://mail.google.com/mail/?view=cm&fs=1&to=${settings?.email_one}`"
                                 target="_blank"
-                                data-i18n-key="torino_email"
                                 style="color: inherit; text-decoration: none"
-                                >torino@airentiebarabino.com</a
+                                >{{ settings?.email_one }}</a
                                 ></small
                             >
                             </div>
                             <div class="d-flex align-items-center">
                             <i class="fas fa-phone text-primary"></i>
-                            &nbsp;<small data-i18n-key="torino_phone"
-                                >+39.011.506.3073</small
-                            >
+                            &nbsp;<small>{{ settings?.phone_one }}</small>
                             </div>
                         </div>
                         </div>
@@ -142,31 +141,26 @@
                             </div>
                         </div>
                         <div class="col-lg-12 p-4">
-                            <h3 data-i18n-key="genova_office">Our Genova Office</h3>
+                            <h3>La nostra sede di {{ settings?.city_two }}</h3>
                             <hr />
                             <div class="d-flex align-items-center">
                             <i class="fas fa-map-marker-alt text-primary"></i>
-                            &nbsp;<small data-i18n-key="genova_address"
-                                >Genova, Via Ceccardi 4/20</small
-                            >
+                            &nbsp;<small>{{ settings?.city_two }}, {{ settings?.address_two }}</small>
                             </div>
                             <div class="d-flex align-items-center">
                             <i class="fas fa-envelope text-primary"></i>
                             &nbsp;<small
                                 ><a
-                                href="https://mail.google.com/mail/?view=cm&fs=1&to=genova@airentiebarabino.com"
+                                :href="`https://mail.google.com/mail/?view=cm&fs=1&to=${settings?.email_two}`"
                                 target="_blank"
-                                data-i18n-key="genova_email"
                                 style="color: inherit; text-decoration: none"
-                                >genova@airentiebarabino.com</a
+                                >{{ settings?.email_two }}</a
                                 ></small
                             >
                             </div>
                             <div class="d-flex align-items-center">
                             <i class="fas fa-phone text-primary"></i>
-                            &nbsp;<small data-i18n-key="genova_phone"
-                                >+39.010.580.386</small
-                            >
+                            &nbsp;<small>{{ settings?.phone_two }}</small>
                             </div>
                         </div>
                         </div>

@@ -1,5 +1,6 @@
 <script setup>
 import FrontEndLayout from '@/Layouts/FrontEndLayout.vue';
+import ServicesHierarchy from '@/Components/ServicesHierarchy.vue';
 import { usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
 
@@ -10,32 +11,21 @@ const service = computed(() => page.props.service);
 
 <template>
   <FrontEndLayout>
-
-    <section>
+    <section class="services-section py-5">
       <div class="container">
         <div class="row">
-            <div class="col-lg-12">
-                <div class="service-details__faq">
-                    <div class="accrodion-grp faq-one-accrodion" data-grp-name="faq-one-accrodion">
-                        <div class="accrodion active">
-                        <div class="accrodion-title">
-                            <h4>{{ service.name }}</h4>
-                        </div>
-                        <div class="accrodion-content" style="">
-                                <div class="inner">
-                                    <ul>
-                                        <li >
-                                            <p v-html="service.description"></p>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+          <div class="col-lg-12">
+            <ServicesHierarchy :services="[service]" />
+          </div>
         </div>
       </div>
     </section>
   </FrontEndLayout>
 </template>
+
+<style scoped>
+.services-section {
+  background-color: #f8f9fa;
+  min-height: 60vh;
+}
+</style>

@@ -25,7 +25,15 @@ class AppServiceProvider extends ServiceProvider
     {
         Inertia::share([
             'settings' => fn () => Setting::first(),
-            'services' => fn () => Service::latest()->get()
+            'services' => fn () => Service::active()
+                ->with(['subServices' => function($query) {
+                    $query->where('status', 'active')
+                        ->orderBy('sort_order')
+                        ->select(['id', 'service_id', 'title', 'title_translations', 'status', 'sort_order']);
+                }])
+                ->orderBy('menu_order')
+                ->select(['id', 'name', 'name_translations', 'slug', 'description', 'description_translations', 'status', 'menu_order'])
+                ->get()
         ]);
         Vite::prefetch(concurrency: 3);
     }

@@ -1,5 +1,13 @@
 <script setup>
     import FrontEndLayout from '@/Layouts/FrontEndLayout.vue';
+    import { useLanguage } from '@/Composables/useLanguage.js';
+    import { Link } from '@inertiajs/vue3';
+
+    const props = defineProps({
+        services: Array
+    });
+
+    const { getTranslatedText } = useLanguage();
 </script>
 
 <template>
@@ -24,361 +32,42 @@
                     data-wow-delay="100ms"
                     data-wow-duration="200ms"
                 >
-                    <!-- <div
-                    class="col-xl-6 wow slideInLeft animated"
-                    data-wow-delay="100ms"
-                    data-wow-duration="2500ms"
-                    style="
-                        visibility: visible;
-                        animation-duration: 2500ms;
-                        animation-delay: 100ms;
-                        animation-name: slideInLeft;
-                    "
+                    <div 
+                        v-for="service in services" 
+                        :key="service.id"
+                        class="col-xl-6 mt-4"
                     >
-                    <div class="why-choose-one__left">
-                        <div class="why-choose-one__img">
-                        <img
-                            src="/images/resources/why-choose-one-img.jpg"
-                            alt=""
-                        />
-                        </div>
-                        <div class="why-choose-one-box-1"></div>
-                        <div class="why-choose-one-box-2"></div>
-                        <div class="why-choose-one-box-3"></div>
-                    </div>
-                    </div> -->
-                    <div class="col-xl-6 mt-4">
-                    <div class="professional-card">
-                        <div class="why-choose-one__right m-0">
-                        <div class="section-title text-left">
-                            <!-- <span class="section-title__tagline">For Business</span> -->
-                            <h2 class="we-care__title" data-i18n-key="for_businesses">
-                            For Businesses
-                            </h2>
-                        </div>
+                        <div class="professional-card">
+                            <div class="why-choose-one__right m-0">
+                                <div class="section-title text-left">
+                                    <h2 class="we-care__title">
+                                        {{ getTranslatedText(service.name_translations, service.name) }}
+                                    </h2>
+                                </div>
 
-                        <div class="why-choose-one__content mt-0">
-                            <!-- <div class="why-choose-one__content-img">
-                            <img
-                            src="/images/resources/why-choose-one-content-img.jpg"
-                            alt=""
-                            />
-                        </div> -->
-                            <div class="why-choose-one__content-list">
-                            <ul class="list-unstyled why-choose-one__points">
-                                <li>
-                                <div class="icon">
-                                    <span class="icon-check"></span>
+                                <div class="why-choose-one__content mt-0">
+                                    <div class="why-choose-one__content-list">
+                                        <ul class="list-unstyled why-choose-one__points">
+                                            <li v-for="subService in service.sub_services" :key="subService.id">
+                                                <div class="icon">
+                                                    <span class="icon-check"></span>
+                                                </div>
+                                                <div class="text">
+                                                    <p>{{ getTranslatedText(subService.title_translations, subService.title) }}</p>
+                                                </div>
+                                            </li>
+                                        </ul>
+                                    </div>
                                 </div>
-                                <div class="text">
-                                    <p data-i18n-key="legal">Legal</p>
-                                </div>
-                                </li>
-                                <li>
-                                <div class="icon">
-                                    <span class="icon-check"></span>
-                                </div>
-                                <div class="text">
-                                    <p
-                                    data-i18n-key="corporate_and_accounting_consulting"
-                                    >
-                                    Corporate and Accounting Consulting
-                                    </p>
-                                </div>
-                                </li>
-                                <li>
-                                <div class="icon">
-                                    <span class="icon-check"></span>
-                                </div>
-                                <div class="text">
-                                    <p data-i18n-key="consultancy">Consultancy</p>
-                                </div>
-                                </li>
-                                <li>
-                                <div class="icon">
-                                    <span class="icon-check"></span>
-                                </div>
-                                <div class="text">
-                                    <p data-i18n-key="labor_consultancy">
-                                    Labor Consultancy
-                                    </p>
-                                </div>
-                                </li>
-                                <li>
-                                <div class="icon">
-                                    <span class="icon-check"></span>
-                                </div>
-                                <div class="text">
-                                    <p data-i18n-key="tax_consultancy">
-                                    Tax Consultancy
-                                    </p>
-                                </div>
-                                </li>
-                                <li>
-                                <div class="icon">
-                                    <span class="icon-check"></span>
-                                </div>
-                                <div class="text">
-                                    <p data-i18n-key="auditing">Auditing</p>
-                                </div>
-                                </li>
-                            </ul>
                             </div>
-                        </div>
-                        </div>
-                        <hr />
-                        <a
-                        href="companies.html"
-                        class="thm-btn welcome-one__btn mt-4"
-                        data-i18n-key="read_more"
-                        >read more</a
-                        >
-                    </div>
-                    </div>
-                    <div class="col-xl-6 mt-4">
-                    <div class="professional-card">
-                        <div class="why-choose-one__right m-0">
-                        <div class="section-title text-left">
-                            <!-- <span class="section-title__tagline">For Business</span> -->
-                            <h2 class="we-care__title" data-i18n-key="for_abroad">
-                            For Abroad
-                            </h2>
-                        </div>
-
-                        <div class="why-choose-one__content mt-0">
-                            <!-- <div class="why-choose-one__content-img">
-                            <img
-                            src="/images/resources/why-choose-one-content-img.jpg"
-                            alt=""
-                            />
-                        </div> -->
-                            <div class="why-choose-one__content-list">
-                            <ul class="list-unstyled why-choose-one__points">
-                                <li>
-                                <div class="icon">
-                                    <span class="icon-check"></span>
-                                </div>
-                                <div class="text">
-                                    <p data-i18n-key="reception_of_foreign_companies">
-                                    Reception of foreign companies
-                                    </p>
-                                </div>
-                                </li>
-                                <li>
-                                <div class="icon">
-                                    <span class="icon-check"></span>
-                                </div>
-                                <div class="text">
-                                    <p data-i18n-key="recruitment_and_legal_checks">
-                                    Recruitment and legal checks
-                                    </p>
-                                </div>
-                                </li>
-                                <li>
-                                <div class="icon">
-                                    <span class="icon-check"></span>
-                                </div>
-                                <div class="text">
-                                    <p data-i18n-key="consulting_for_expatriates">
-                                    Consulting for expatriates
-                                    </p>
-                                </div>
-                                </li>
-                                <li>
-                                <div class="icon">
-                                    <span class="icon-check"></span>
-                                </div>
-                                <div class="text">
-                                    <p
-                                    data-i18n-key="consulting_for_opening_permanent_establishment"
-                                    >
-                                    Consulting for opening a permanent establishment
-                                    or branch.
-                                    </p>
-                                </div>
-                                </li>
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                                <li></li>
-                            </ul>
-                            </div>
-                        </div>
-                        </div>
-                        <hr />
-                        <a
-                        href="#"
-                        class="thm-btn welcome-one__btn mt-4"
-                        data-i18n-key="read_more"
-                        >read more</a
-                        >
-                    </div>
-                    </div>
-                    <div class="col-xl-6 mt-4">
-                    <div class="professional-card">
-                        <div class="why-choose-one__right m-0">
-                        <div class="section-title text-left">
-                            <!-- <span class="section-title__tagline">For Business</span> -->
-                            <h2
-                            class="we-care__title"
-                            data-i18n-key="for_non_profit_sector"
+                            <hr />
+                            <Link
+                                :href="`/service/${service.slug}`"
+                                class="thm-btn welcome-one__btn mt-4"
                             >
-                            For the Non-profit Sector
-                            </h2>
+                                LEGGI DI PIÙ
+                            </Link>
                         </div>
-
-                        <div class="why-choose-one__content mt-0">
-                            <!-- <div class="why-choose-one__content-img">
-                            <img
-                            src="/images/resources/why-choose-one-content-img.jpg"
-                            alt=""
-                            />
-                        </div> -->
-                            <div class="why-choose-one__content-list">
-                            <ul class="list-unstyled why-choose-one__points">
-                                <li>
-                                <div class="icon">
-                                    <span class="icon-check"></span>
-                                </div>
-                                <div class="text">
-                                    <p
-                                    data-i18n-key="institutional_activity_management"
-                                    >
-                                    Institutional activity management;
-                                    </p>
-                                </div>
-                                </li>
-                                <li>
-                                <div class="icon">
-                                    <span class="icon-check"></span>
-                                </div>
-                                <div class="text">
-                                    <p data-i18n-key="commercial_activity_management">
-                                    Commercial activity management
-                                    </p>
-                                </div>
-                                </li>
-                                <li>
-                                <div class="icon">
-                                    <span class="icon-check"></span>
-                                </div>
-                                <div class="text">
-                                    <p data-i18n-key="amateur_sports">Amateur sports</p>
-                                </div>
-                                </li>
-                                <li>
-                                <div class="icon">
-                                    <span class="icon-check"></span>
-                                </div>
-                                <div class="text">
-                                    <p data-i18n-key="activity_compensation_management">
-                                    activity compensation management
-                                    </p>
-                                </div>
-                                </li>
-                                <li>
-                                <div class="icon">
-                                    <span class="icon-check"></span>
-                                </div>
-                                <div class="text">
-                                    <p data-i18n-key="employment_contracts">
-                                    Employment contracts
-                                    </p>
-                                </div>
-                                </li>
-                            </ul>
-                            </div>
-                        </div>
-                        </div>
-                        <hr />
-                        <a
-                        href="for-then-non-profit.html"
-                        class="thm-btn welcome-one__btn mt-4"
-                        data-i18n-key="read_more"
-                        >read more</a
-                        >
-                    </div>
-                    </div>
-                    <div class="col-xl-6 mt-4">
-                    <div class="professional-card">
-                        <div class="why-choose-one__right m-0">
-                        <div class="section-title text-left">
-                            <!-- <span class="section-title__tagline">For Business</span> -->
-                            <h2
-                            class="we-care__title"
-                            data-i18n-key="for_families_and_individuals"
-                            >
-                            For Families and Individuals
-                            </h2>
-                        </div>
-
-                        <div class="why-choose-one__content mt-0">
-                            <!-- <div class="why-choose-one__content-img">
-                            <img
-                            src="/images/resources/why-choose-one-content-img.jpg"
-                            alt=""
-                            />
-                        </div> -->
-                            <div class="why-choose-one__content-list">
-                            <ul class="list-unstyled why-choose-one__points">
-                                <li>
-                                <div class="icon">
-                                    <span class="icon-check"></span>
-                                </div>
-                                <div class="text">
-                                    <p data-i18n-key="tax_returns">Tax Returns</p>
-                                </div>
-                                </li>
-                                <li>
-                                <div class="icon">
-                                    <span class="icon-check"></span>
-                                </div>
-                                <div class="text">
-                                    <p data-i18n-key="real_estate_management">
-                                    Real Estate Management
-                                    </p>
-                                </div>
-                                </li>
-                                <li>
-                                <div class="icon">
-                                    <span class="icon-check"></span>
-                                </div>
-                                <div class="text">
-                                    <p data-i18n-key="domestic_personnel_management">
-                                    Domestic Personnel Management
-                                    </p>
-                                </div>
-                                </li>
-                                <li>
-                                <div class="icon">
-                                    <span class="icon-check"></span>
-                                </div>
-                                <div class="text">
-                                    <p data-i18n-key="asset_arrangements">
-                                    Asset Arrangements
-                                    </p>
-                                </div>
-                                </li>
-                                <li>
-                                <div class="icon">
-                                    <span class="icon-check"></span>
-                                </div>
-                                <div class="text">
-                                    <p data-i18n-key="trust_titles">Trust Titles</p>
-                                </div>
-                                </li>
-                            </ul>
-                            </div>
-                        </div>
-                        </div>
-                        <hr />
-                        <a
-                        href="for-families-and-individuals.html"
-                        class="thm-btn welcome-one__btn mt-4"
-                        data-i18n-key="read_more"
-                        >read more</a
-                        >
-                    </div>
                     </div>
                 </div>
             </div>

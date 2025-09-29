@@ -2,8 +2,10 @@
 
 import { usePage } from '@inertiajs/vue3';
 import { computed } from 'vue'
+import { useLanguage } from '../../Composables/useLanguage.js'
 
 const page = usePage();
+const { getTranslatedText } = useLanguage()
 
 const componentName = computed(() => {
     const parts = page.component.split('/')
@@ -52,7 +54,7 @@ const settings = computed(() => page.props.settings)
                         <a href="#" data-i18n-key="header_services">Services</a>
                         <ul>
                         <li v-for="item in services" :key="item.id">
-                            <a :href="route('services.show', item.slug)">{{ item.name }}</a>
+                            <a :href="route('services.show', item.slug)">{{ getTranslatedText(item.name_translations, item.name) }}</a>
                         </li>
                         <!-- <li>
                             <a
@@ -137,7 +139,7 @@ const settings = computed(() => page.props.settings)
                         <a href="#" data-i18n-key="header_services">Services</a>
                         <ul>
                             <li v-for="item in services" :key="item.id">
-                                <a :href="route('services.show', item.slug)">{{ item.name }}</a>
+                                <a :href="route('services.show', item.slug)">{{ getTranslatedText(item.name_translations, item.name) }}</a>
                             </li>
                         </ul>
                     </li>
@@ -244,9 +246,11 @@ const settings = computed(() => page.props.settings)
                     >Home</a
                     >
                 </li>
-                <li >{{ service.name }}</li>
                 </ul>
-                <h2 >{{ service.name }}</h2>
+                <h2>{{ getTranslatedText(service.name_translations, service.name) }}</h2>
+                <div v-if="service.description" class="page-header__description">
+                    <p v-html="getTranslatedText(service.description_translations, service.description)"></p>
+                </div>
             </div>
             </div>
         </section>

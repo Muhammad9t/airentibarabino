@@ -3,12 +3,19 @@
 namespace App\Http\Controllers;
 
 use App\Models\Blog;
+use App\Services\TranslationService;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
 class BlogController extends Controller
 {
+    protected TranslationService $translationService;
+
+    public function __construct(TranslationService $translationService)
+    {
+        $this->translationService = $translationService;
+    }
     /**
      * Display a listing of the resource.
      */
@@ -36,6 +43,8 @@ class BlogController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'status' => 'required|in:active,inactive',
+            'source_language' => 'nullable|in:en,it,fr'
         ]);
 
         if ($request->hasFile('image')) {
@@ -43,12 +52,19 @@ class BlogController extends Controller
             $data['image'] = "/storage/" . $path;
         }
 
+        // Detect source language if not provided
+        $sourceLanguage = $data['source_language'] ?? $this->translationService->detectLanguage($data['title']);
+        
+        // Generate translations
+        $data['description_translations'] = $this->translationService->generateTranslations($data['description'], $sourceLanguage);
+
         $data['slug'] = Str::slug($data['title']);
         $count = Blog::where('slug', 'like', "{$data['slug']}%")->count();
         if ($count > 0) {
             $data['slug'] .= '-' . ($count + 1);
         }
 
+        unset($data['source_language']); // Remove from data before saving
         Blog::create($data);
 
         return redirect()->route('blogs.index')->with('success', 'Blog created successfully.');
@@ -80,6 +96,8 @@ class BlogController extends Controller
             'title' => 'nullable|string|max:255',
             'description' => 'nullable|string',
             'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'status' => 'required|in:active,inactive',
+            'source_language' => 'nullable|in:en,it,fr'
         ]);
 
         if ($request->hasFile('image')) {
@@ -88,11 +106,22 @@ class BlogController extends Controller
             }
             $path = $request->file('image')->store('blogs', 'public');
             $data['image'] = "/storage/" . $path;
-        }else {
+        } else {
             unset($data['image']);
         }
-        if (!empty($data['name'])) {
-            $newSlug = Str::slug($data['name']);
+
+        // Update translations if description changed
+        if (isset($data['description']) && !empty($data['description'])) {
+            $sourceLanguage = $data['source_language'] ?? $this->translationService->detectLanguage($data['description']);
+            $data['description_translations'] = $this->translationService->updateTranslations(
+                $blog->description_translations ?? [], 
+                $data['description'], 
+                $sourceLanguage
+            );
+        }
+
+        if (!empty($data['title'])) {
+            $newSlug = Str::slug($data['title']);
 
             $count = Blog::where('slug', 'like', "{$newSlug}%")->where('id', '!=', $blog->id)->count();
             if ($count > 0) {
@@ -101,6 +130,8 @@ class BlogController extends Controller
 
             $data['slug'] = $newSlug;
         }
+
+        unset($data['source_language']); // Remove from data before saving
         $blog->update($data);
 
         return redirect()->route('blogs.index')->with('success', 'Blog updated!');
