@@ -13,6 +13,8 @@
     const isEditing = ref(false)
     const editingService = ref(null)
     const editorKey = ref(0)
+    const viewService = ref(null)
+    const showViewModal = ref(false)
 
     const props = defineProps({
         services: {
@@ -35,30 +37,6 @@
             s.description?.toLowerCase().includes(search.value.toLowerCase())
         )
     )
-
-    // function openAddModal() {
-    //     isEditing.value = false
-    //     editingService.value = null
-    //     form.defaults({
-    //         name: '',
-    //         description: '',
-    //         status: 'active'
-    //     })
-    //     form.reset()
-    //     showModal.value = true
-    // }
-
-    // function openEditModal(service) {
-    //     isEditing.value = true
-    //     editingService.value = service
-    //     form.defaults({
-    //         name: service.name,
-    //         description: service.description,
-    //         status: service.status
-    //     })
-    //     form.reset()
-    //     showModal.value = true
-    // }
 
     function openAddModal() {
         isEditing.value = false
@@ -84,6 +62,11 @@
         form.reset()
         editorKey.value++
         showModal.value = true
+    }
+
+    function openViewModal(service) {
+        viewService.value = service
+        showViewModal.value = true
     }
 
     function submitForm() {
@@ -115,6 +98,13 @@
 
     function toggleStatus(service) {
         router.patch(route('services.toggleStatus', service.slug))
+    }
+
+    function truncateDescription(text, wordLimit = 25) {
+        if (!text) return ''
+        const words = text.replace(/<\/?p>/g, '').split(/\s+/)
+        if (words.length <= wordLimit) return words.join(' ')
+        return words.slice(0, wordLimit).join(' ')
     }
 
 </script>
@@ -149,7 +139,17 @@
                         <tr v-for="(service, index) in filteredServices" :key="service.id">
                             <td>{{ index + 1 }}</td>
                             <td>{{ service.name }}</td>
-                            <td v-html="service.description"></td>
+                            <td>
+                                <span style="display: inline;">
+                                    <span v-html="truncateDescription(service.description)" style="display: inline;"></span>
+                                    <span v-if="service.description && service.description.split(/\s+/).length > 25"
+                                            class="text-primary cursor-pointer fw-bold ms-1"
+                                            style="display: inline;"
+                                            @click="openViewModal(service)">
+                                        More...
+                                    </span>
+                                </span>
+                            </td>
                             <td>
                                 <span
                                     class="px-3 py-1 rounded-full text-sm font-medium border"
@@ -161,10 +161,10 @@
                                 </span>
                             </td>
                             <td>
-                                <button class="btn btn-sm btn-warning me-2" @click="openEditModal(service)">
+                                <button class="btn btn-sm btn-warning me-2 mb-2" @click="openEditModal(service)">
                                     Edit
                                 </button>
-                                <button class="btn btn-sm btn-danger me-2" @click="deleteService(service)">
+                                <button class="btn btn-sm btn-danger me-2 mb-2" @click="deleteService(service)">
                                     Delete
                                 </button>
                                 <button class="btn btn-sm" :class="service.status === 'active' ? 'btn-secondary' : 'btn-success'" @click="toggleStatus(service)">
@@ -196,11 +196,6 @@
                             <label class="form-label">Name</label>
                             <input v-model="form.name" type="text" class="form-control" required />
                         </div>
-
-                        <!-- <div class="mb-3">
-                            <label class="form-label">Description</label>
-                            <textarea v-model="form.description" rows="3" class="form-control" required></textarea>
-                        </div> -->
 
                         <div class="mb-3">
                             <label class="form-label">Description</label>
@@ -242,5 +237,39 @@
         </div>
     </div>
     <div v-if="showModal" class="modal-backdrop fade show" @click="showModal = false" ></div>
+
+    <!-- View Service Modal -->
+<div class="modal fade" tabindex="-1" :class="{ show: showViewModal }" style="display: block" v-if="showViewModal">
+  <div class="modal-dialog modal-lg">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">{{ viewService?.name }}</h5>
+        <button type="button" class="btn-close" @click="showViewModal = false"></button>
+      </div>
+      <div class="modal-body">
+        <div>
+          <h6>Description</h6>
+          <div v-html="viewService?.description" class="p-2 border rounded bg-light" style="min-height: 120px;"></div>
+        </div>
+        <div class="mt-3">
+          <strong>Status:</strong>
+          <span
+            class="px-3 py-1 rounded-full text-sm font-medium border"
+            :class="viewService?.status === 'active'
+                ? 'bg-blue-100 text-blue-600 border-blue-600'
+                : 'bg-red-100 text-red-600 border-red-600'">
+            {{ viewService?.status === 'active' ? 'Active' : 'Inactive' }}
+          </span>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" @click="showViewModal = false">Close</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div v-if="showViewModal" class="modal-backdrop fade show" @click="showViewModal = false"></div>
+
   </AuthenticatedLayout>
 </template>

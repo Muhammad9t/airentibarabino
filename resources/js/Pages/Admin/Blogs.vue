@@ -12,6 +12,9 @@
     const isEditing = ref(false);
     const editingBlog = ref(null);
     const editorKey = ref(0)
+    const viewBlog = ref(null)
+    const showViewModal = ref(false)
+
 
     const props = defineProps({
         blogs: {
@@ -73,6 +76,12 @@
         showModal.value = true
     }
 
+    function openViewModal(blog) {
+        console.log("Open pass");
+        viewBlog.value = blog
+        showViewModal.value = true
+    }
+
 
     function submitForm() {
         const options = {
@@ -112,6 +121,13 @@
         router.patch(route('blogs.toggleStatus', blog.slug))
     }
 
+    function truncateDescription(text, wordLimit = 25) {
+        if (!text) return ''
+        const words = text.replace(/<\/?p>/g, '').split(/\s+/)
+        if (words.length <= wordLimit) return words.join(' ')
+        return words.slice(0, wordLimit).join(' ')
+    }
+
 </script>
 
 <template>
@@ -148,7 +164,17 @@
                                     <img :src="blog.image" alt="Blog Image" width="80" class="rounded" />
                                 </td>
                                 <td>{{ blog.title }}</td>
-                                <td v-html="blog.description"></td>
+                                <td>
+                                    <span style="display: inline;">
+                                    <span v-html="truncateDescription(blog.description)" style="display: inline;"></span>
+                                    <span v-if="blog.description && blog.description.split(/\s+/).length > 25"
+                                            class="text-primary cursor-pointer fw-bold ms-1"
+                                            style="display: inline;"
+                                            @click="openViewModal(blog)">
+                                        More...
+                                    </span>
+                                </span>
+                                </td>
                                 <td>{{ new Date(blog.created_at).toLocaleDateString('en-GB').replace(/\//g, '-') }}</td>
                                 <td>
                                     <span
@@ -161,8 +187,8 @@
                                     </span>
                                 </td>
                                 <td>
-                                    <button class="btn btn-sm btn-warning me-2" @click="openEditModal(blog)">Edit</button>
-                                    <button class="btn btn-sm btn-danger me-2" @click.prevent="deleteBlog(blog)" >Delete</button>
+                                    <button class="btn btn-sm btn-warning me-2 mb-2" @click="openEditModal(blog)">Edit</button>
+                                    <button class="btn btn-sm btn-danger me-2  mb-2" @click.prevent="deleteBlog(blog)" >Delete</button>
                                     <button class="btn btn-sm" :class="blog.status === 'active' ? 'btn-secondary' : 'btn-success'" @click="toggleStatus(blog)">
                                     {{ blog.status === 'active' ? 'Deactivate' : 'Activate' }}
                                 </button>
@@ -252,5 +278,44 @@
             </div>
         </div>
         <div v-if="showModal" class="modal-backdrop fade show" @click="showModal = false"></div>
+
+        <!-- View Blog Modal -->
+        <div class="modal fade" tabindex="-1" :class="{ show: showViewModal }" style="display: block" v-if="showViewModal">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">{{ viewBlog?.title }}</h5>
+                    <button type="button" class="btn-close" @click="showViewModal = false"></button>
+                </div>
+                <div class="modal-body">
+                    <div v-if="viewBlog?.image" class="mb-3 text-center">
+                    <img :src="viewBlog.image" alt="Blog Image" class="rounded border" width="200" />
+                    </div>
+                    <div>
+                    <h6>Description</h6>
+                    <div v-html="viewBlog?.description" class="p-2 border rounded bg-light" style="min-height: 120px;"></div>
+                    </div>
+                    <div class="mt-3">
+                    <strong>Status:</strong>
+                    <span
+                        class="px-3 py-1 rounded-full text-sm font-medium border ms-2"
+                        :class="viewBlog?.status === 'active'
+                            ? 'bg-blue-100 text-blue-600 border-blue-600'
+                            : 'bg-red-100 text-red-600 border-red-600'">
+                        {{ viewBlog?.status === 'active' ? 'Active' : 'Inactive' }}
+                    </span>
+                    </div>
+                    <div class="mt-2">
+                    <strong>Date:</strong> {{ new Date(viewBlog?.created_at).toLocaleDateString('en-GB').replace(/\//g, '-') }}
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" @click="showViewModal = false">Close</button>
+                </div>
+                </div>
+            </div>
+        </div>
+
+        <div v-if="showViewModal" class="modal-backdrop fade show" @click="showViewModal = false"></div>
     </AuthenticatedLayout>
 </template>
