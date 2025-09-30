@@ -18,7 +18,8 @@
         showMainSlider.value = !currentPath.includes('/news-insights') && 
                               !currentPath.includes('/service/') &&
                               currentPath !== '/contact' &&
-                              currentPath !== '/about';
+                              currentPath !== '/about' &&
+                              currentPath !== '/mission_and_values';
     };
 
     onMounted(() => {
