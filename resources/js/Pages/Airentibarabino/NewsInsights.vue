@@ -37,8 +37,8 @@
                         <div class="news-card">
                             <div class="news-card__image">
                                 <img 
-                                    :src="blog.image || '/images/resources/default-blog.jpg'" 
-                                    :alt="getTranslatedText(blog.description_translations, blog.description)"
+                                    :src="blog.image ? `/storage/${blog.image}` : ''"
+                                    alt="Blog Image"
                                     class="img-fluid"
                                 />
                                 <div class="news-card__date">
@@ -52,8 +52,8 @@
                                         {{ blog.title }}
                                     </Link>
                                 </h3>
-                                <p class="news-card__text">
-                                    {{ getTranslatedText(blog.description_translations, blog.description_preview || blog.description).substring(0, 150) }}...
+                                <p class="news-card__text" v-html="getTranslatedText(blog.description_translations, blog.description_preview || blog.description).substring(0, 150) + '...'">
+                                    
                                 </p>
                                 <Link 
                                     :href="`/news-insights/${blog.slug}`" 
