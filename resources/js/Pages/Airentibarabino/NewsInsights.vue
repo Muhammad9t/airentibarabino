@@ -37,7 +37,7 @@
                         <div class="news-card">
                             <div class="news-card__image">
                                 <img 
-                                    :src="blog.image ? `/storage/${blog.image}` : ''"
+                                    :src="blog.image ? `/storage/app/public/${blog.image}` : ''"
                                     alt="Blog Image"
                                     class="img-fluid"
                                 />

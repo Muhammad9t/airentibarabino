@@ -19,8 +19,8 @@
                         <div class="blog-detail">
                             <div class="blog-detail__image">
                                 <img 
-                                    :src="blog?.image || '/images/resources/default-blog.jpg'" 
-                                    :alt="blog?.title || 'Blog Post'"
+                                    :src="blog.image ? `/storage/app/public/${blog.image}` : ''"
+                                    alt="Blog Post"
                                     class="img-fluid"
                                 />
                             </div>
