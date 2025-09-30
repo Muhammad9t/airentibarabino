@@ -35,9 +35,8 @@ class DatabaseSeeder extends Seeder
         $this->call(SettingSeeder::class);
         
         // Seed services
-        $this->call(SimpleServiceSeeder::class);
+        $this->call(Database\Seeders\Services\ServiceSeederFactory::class);
         
         // Seed blogs
-        $this->call(BlogSeeder::class);
     }
 }

@@ -98,15 +98,12 @@ class SubServiceController extends Controller
 
         // Handle translations - prioritize English input if it's changed
         if (isset($data['title']) && !empty($data['title']) && $data['title'] !== $subService->title) {
-            // English title has changed, generate new translations
             $sourceLanguage = $data['source_language'] ?? $this->translationService->detectLanguage($data['title']);
-            $data['title_translations'] = $this->translationService->updateTranslations(
-                $subService->title_translations ?? [], 
-                $data['title'], 
+            $data['title_translations'] = $this->translationService->generateTranslations(
+                $data['title'],
                 $sourceLanguage
             );
         } elseif (isset($data['title_translations']) && is_array($data['title_translations'])) {
-            // Use the provided translations directly (from multilingual tabs)
             $data['title_translations'] = $data['title_translations'];
         }
 
