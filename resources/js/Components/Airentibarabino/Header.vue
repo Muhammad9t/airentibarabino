@@ -387,7 +387,7 @@ const settings = computed(() => page.props.settings)
             </div>
         </section>
 
-        <section v-if="componentName == 'NewsInsights'" class="page-header">
+        <section v-if="componentName == 'NewsInsights' || componentName == 'BlogDetail'" class="page-header">
             <div
                 class="page-header-bg"
                 style="
