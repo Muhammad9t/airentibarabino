@@ -1,19 +1,28 @@
 <script setup>
 
-import { usePage } from '@inertiajs/vue3';
-import { computed } from 'vue'
+import { Link } from '@inertiajs/vue3';
+import { useLanguage } from '../../Composables/useLanguage.js'
 
-const page = usePage();
+const { getTranslatedText } = useLanguage();
 
-const componentName = computed(() => {
-    const parts = page.component.split('/')
-    return parts[parts.length - 1]
-});
+// Slider content with translations
+const sliderContent = {
+    heroTitle: {
+        it: "Airenti & Barabino <br /> Dottori Commercialisti",
+        en: "Airenti & Barabino <br /> Chartered Accountants",
+        fr: "Airenti & Barabino <br /> Experts-Comptables"
+    },
+    discoverMore: {
+        it: "Scopri di più",
+        en: "Discover More",
+        fr: "Découvrir plus"
+    }
+};
 
 </script>
 
 <template>
-    <section class="main-slider" v-if="componentName == 'Home'">
+    <section class="main-slider">
         <div
         class="swiper-container thm-swiper__slider"
         data-swiper-options='{"slidesPerView": 1, "loop": true,
@@ -58,9 +67,7 @@ const componentName = computed(() => {
                 <div class="col-lg-12">
                     <div class="main-slider__content">
                     <div class="main-slider__title-box-1">
-                        <h2 data-i18n-key="hero_title">
-                        Airenti & Barabino <br />
-                        Dottori Commercialisti
+                        <h2 v-html="getTranslatedText(sliderContent.heroTitle)">
                         </h2>
                         <!-- <div class="main-slider__title-box-2">
                         <h2>
@@ -69,11 +76,10 @@ const componentName = computed(() => {
                         </h2>
                         </div> -->
                     </div>
-                    <a
-                        href="about.html"
+                    <Link
+                        :href="route('about')"
                         class="thm-btn"
-                        data-i18n-key="discover_more"
-                        >Discover More</a
+                        >{{ getTranslatedText(sliderContent.discoverMore) }}</Link
                     >
                     </div>
                 </div>
@@ -107,9 +113,7 @@ const componentName = computed(() => {
                 <div class="col-lg-12">
                     <div class="main-slider__content">
                     <div class="main-slider__title-box-1">
-                        <h2 data-i18n-key="hero_title">
-                        Airenti & Barabino <br />
-                        Dottori Commercialisti
+                        <h2 v-html="getTranslatedText(sliderContent.heroTitle)">
                         </h2>
                         <div class="main-slider__title-box-2">
                         <!-- <h2>
@@ -119,11 +123,10 @@ const componentName = computed(() => {
                         </h2> -->
                         </div>
                     </div>
-                    <a
-                        href="about.html"
+                    <Link
+                        :href="route('about')"
                         class="thm-btn"
-                        data-i18n-key="discover_more"
-                        >Discover More</a
+                        >{{ getTranslatedText(sliderContent.discoverMore) }}</Link
                     >
                     <!-- <div class="main-slider-badge">
                         <img
@@ -164,9 +167,7 @@ const componentName = computed(() => {
                 <div class="col-lg-12">
                     <div class="main-slider__content">
                     <div class="main-slider__title-box-1">
-                        <h2 data-i18n-key="hero_title">
-                        Airenti & Barabino <br />
-                        Dottori Commercialisti
+                        <h2 v-html="getTranslatedText(sliderContent.heroTitle)">
                         </h2>
                         <div class="main-slider__title-box-2">
                         <!-- <h2>
@@ -176,11 +177,10 @@ const componentName = computed(() => {
                         </h2> -->
                         </div>
                     </div>
-                    <a
-                        href="about.html"
+                    <Link
+                        :href="route('about')"
                         class="thm-btn"
-                        data-i18n-key="discover_more"
-                        >Discover More</a
+                        >{{ getTranslatedText(sliderContent.discoverMore) }}</Link
                     >
                     <!-- <div class="main-slider-badge">
                         <img
@@ -221,9 +221,7 @@ const componentName = computed(() => {
                 <div class="col-lg-12">
                     <div class="main-slider__content">
                     <div class="main-slider__title-box-1">
-                        <h2 data-i18n-key="hero_title">
-                        Airenti & Barabino <br />
-                        Dottori Commercialisti
+                        <h2 v-html="getTranslatedText(sliderContent.heroTitle)">
                         </h2>
                         <div class="main-slider__title-box-2">
                         <!-- <h2>
@@ -233,11 +231,10 @@ const componentName = computed(() => {
                                     </h2> -->
                         </div>
                     </div>
-                    <a
-                        href="about.html"
+                    <Link
+                        :href="route('about')"
                         class="thm-btn"
-                        data-i18n-key="discover_more"
-                        >Discover More</a
+                        >{{ getTranslatedText(sliderContent.discoverMore) }}</Link
                     >
                     <!-- <div class="main-slider-badge">
                                     <img

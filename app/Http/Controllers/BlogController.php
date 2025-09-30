@@ -159,4 +159,47 @@ class BlogController extends Controller
 
         return back()->with('success', 'Blog status updated!');
     }
+
+    /**
+     * Display a listing of active blogs for public
+     */
+    public function publicIndex()
+    {
+        $blogs = Blog::where('status', 'active')
+            ->latest()
+            ->select(['id', 'title', 'slug', 'description', 'description_translations', 'image', 'created_at'])
+            ->get()
+            ->map(function ($blog) {
+                // Strip HTML tags for preview
+                $blog->description_preview = strip_tags($blog->description);
+                return $blog;
+            });
+
+        return inertia('Airentibarabino/NewsInsights', [
+            'blogs' => $blogs,
+        ]);
+    }
+
+    /**
+     * Display the specified blog for public
+     */
+    public function publicShow(Blog $blog)
+    {
+        if ($blog->status !== 'active') {
+            abort(404);
+        }
+
+        // Get related blogs (other active blogs)
+        $relatedBlogs = Blog::where('status', 'active')
+            ->where('id', '!=', $blog->id)
+            ->latest()
+            ->limit(3)
+            ->select(['id', 'title', 'slug', 'description', 'description_translations', 'image', 'created_at'])
+            ->get();
+
+        return inertia('Airentibarabino/BlogDetail', [
+            'blog' => $blog,
+            'relatedBlogs' => $relatedBlogs,
+        ]);
+    }
 }

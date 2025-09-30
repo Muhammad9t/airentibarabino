@@ -1,5 +1,5 @@
 <script setup>
-import { usePage } from '@inertiajs/vue3'
+import { usePage, Link } from '@inertiajs/vue3'
 import { computed } from 'vue'
 
 const page = usePage()
@@ -189,35 +189,35 @@ const settings = computed(() => page.props.settings)
                       class="footer-widget__links-list list-unstyled clearfix"
                     >
                       <li>
-                        <a
+                        <Link
                           :href="route('companies')"
                           class="text-white"
                           data-i18n-key="footer_companies"
-                          >Companies</a
+                          >Companies</Link
                         >
                       </li>
                       <li>
-                        <a
+                        <Link
                           :href="route('for_the_non_profit')"
                           class="text-white notranslate"
                           data-i18n-key="footer_non_profit"
-                          >Non-profit</a
+                          >Non-profit</Link
                         >
                       </li>
                       <li>
-                        <a
+                        <Link
                           :href="route('for_families_and_individuals')"
                           class="text-white"
                           data-i18n-key="footer_individuals_families"
-                          >Individuals & Families</a
+                          >Individuals & Families</Link
                         >
                       </li>
                       <li>
-                        <a
+                        <Link
                           :href="route('foreign_companies')"
                           class="text-white"
                           data-i18n-key="footer_foreign_companies"
-                          >Foreign Companies</a
+                          >Foreign Companies</Link
                         >
                       </li>
                     </ul>

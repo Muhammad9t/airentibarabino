@@ -1,9 +1,9 @@
 <script setup>
-    import FrontEndLayout from '@/Layouts/FrontEndLayout.vue';
+import { Link } from '@inertiajs/vue3';
 </script>
 
 <template>
-    <FrontEndLayout>
+    <div>
 
         <section class="error-page">
             <div class="container">
@@ -19,8 +19,8 @@
                     The page you are looking for was never existed.
                     </p>
 
-                    <a :href="route('index')" class="thm-btn error-page__btn mt-5"
-                    >back to home</a
+                    <Link :href="route('index')" class="thm-btn error-page__btn mt-5"
+                        >back to home</Link
                     >
                 </div>
                 </div>
@@ -28,5 +28,5 @@
             </div>
         </section>
 
-    </FrontEndLayout>
+    </div>
 </template>

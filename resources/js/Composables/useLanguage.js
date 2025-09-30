@@ -1,7 +1,16 @@
 import { ref, computed, watch } from 'vue'
 
 // Global language state
-const currentLanguage = ref(localStorage.getItem('language') || 'en')
+const getStoredLanguage = () => {
+  try {
+    return localStorage.getItem('language') || 'en'
+  } catch (error) {
+    console.warn('Could not access localStorage:', error)
+    return 'en'
+  }
+}
+
+const currentLanguage = ref(getStoredLanguage())
 
 // Supported languages
 const supportedLanguages = ['en', 'it', 'fr']
@@ -31,12 +40,20 @@ export function useLanguage() {
   const setLanguage = (lang) => {
     if (supportedLanguages.includes(lang)) {
       currentLanguage.value = lang
-      localStorage.setItem('language', lang)
+      try {
+        localStorage.setItem('language', lang)
+      } catch (error) {
+        console.warn('Could not save language to localStorage:', error)
+      }
       
       // Trigger language change event for other components
-      window.dispatchEvent(new CustomEvent('languageChanged', { 
-        detail: { language: lang } 
-      }))
+      try {
+        window.dispatchEvent(new CustomEvent('languageChanged', { 
+          detail: { language: lang } 
+        }))
+      } catch (error) {
+        console.warn('Could not dispatch language change event:', error)
+      }
     }
   }
 
@@ -104,7 +121,11 @@ export function useLanguage() {
 
   // Watch for language changes and update localStorage
   watch(currentLanguage, (newLang) => {
-    localStorage.setItem('language', newLang)
+    try {
+      localStorage.setItem('language', newLang)
+    } catch (error) {
+      console.warn('Could not save language to localStorage:', error)
+    }
   })
 
   return {

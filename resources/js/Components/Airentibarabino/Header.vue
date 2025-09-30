@@ -1,6 +1,6 @@
 <script setup>
 
-import { usePage } from '@inertiajs/vue3';
+import { usePage, Link } from '@inertiajs/vue3';
 import { computed } from 'vue'
 import { useLanguage } from '../../Composables/useLanguage.js'
 
@@ -31,13 +31,13 @@ const settings = computed(() => page.props.settings)
                         alt=""
                     />
                     </a> -->
-                    <a :href="route('home')">
+                    <Link :href="route('home')">
                         <img
                         :src="settings?.logo ? '/storage/' + settings.logo : '/images/resources/logo-1.png'"
                         style="width: 100px"
                         alt="Logo"
                     />
-                    </a>
+                    </Link>
                 </div>
                 <div class="main-menu-wrapper__main-menu">
                     <a href="#" class="mobile-nav__toggler"
@@ -45,16 +45,16 @@ const settings = computed(() => page.props.settings)
                     ></a>
                     <ul class="main-menu__list">
                     <li class="">
-                        <a :href="route('home')" data-i18n-key="header_home">Home</a>
+                        <Link :href="route('home')" data-i18n-key="header_home">Home</Link>
                     </li>
                     <li class="">
-                        <a :href="route('about')" data-i18n-key="header_about">About</a>
+                        <Link :href="route('about')" data-i18n-key="header_about">About</Link>
                     </li>
                     <li class="dropdown">
                         <a href="#" data-i18n-key="header_services">Services</a>
                         <ul>
                         <li v-for="item in services" :key="item.id">
-                            <a :href="route('services.show', item.slug)">{{ getTranslatedText(item.name_translations, item.name) }}</a>
+                            <Link :href="route('services.show', item.slug)">{{ getTranslatedText(item.name_translations, item.name) }}</Link>
                         </li>
                         <!-- <li>
                             <a
@@ -80,32 +80,32 @@ const settings = computed(() => page.props.settings)
                         </ul>
                     </li>
                     <li class="">
-                        <a
-                        :href="route('news_insights')"
+                        <Link
+                        :href="route('news-insights')"
                         data-i18n-key="header_news_insights"
-                        >News & Insights</a
+                        >News & Insights</Link
                         >
                     </li>
                     <li class="">
-                        <a
+                        <Link
                         :href="route('mission_and_values')"
                         data-i18n-key="header_mission_values"
-                        >Mission & Values</a
+                        >Mission & Values</Link
                         >
                     </li>
                     <li>
-                        <a :href="route('contact')" data-i18n-key="header_contact"
-                        >Contact</a
+                        <Link :href="route('contact')" data-i18n-key="header_contact"
+                        >Contact</Link
                         >
                     </li>
                     </ul>
                 </div>
                 <div class="main-menu-wrapper__right">
-                    <a
+                    <Link
                     :href="route('contact')"
                     class="thm-btn welcome-one__btn text-white"
                     data-i18n-key="get_a_quote"
-                    >Get a Quote</a
+                    >Get a Quote</Link
                     >
                 </div>
             </div>
@@ -116,13 +116,13 @@ const settings = computed(() => page.props.settings)
         <div class="sticky-header__content">
             <div class="main-menu-wrapper">
                 <div class="main-menu-wrapper__logo">
-                    <a :href="route('home')">
+                    <Link :href="route('home')">
                         <img
                         :src="settings?.logo ? '/storage/' + settings.logo : '/images/resources/logo-1.png'"
                         style="width: 100px"
                         alt="Logo"
                     />
-                    </a>
+                    </Link>
                 </div>
                 <div class="main-menu-wrapper__main-menu">
                     <a href="#" class="mobile-nav__toggler"
@@ -130,46 +130,46 @@ const settings = computed(() => page.props.settings)
                     ></a>
                     <ul class="main-menu__list">
                     <li class="">
-                        <a :href="route('home')" data-i18n-key="header_home">Home</a>
+                        <Link :href="route('home')" data-i18n-key="header_home">Home</Link>
                     </li>
                     <li class="">
-                        <a :href="route('about')" data-i18n-key="header_about">About</a>
+                        <Link :href="route('about')" data-i18n-key="header_about">About</Link>
                     </li>
                     <li class="dropdown">
                         <a href="#" data-i18n-key="header_services">Services</a>
                         <ul>
                             <li v-for="item in services" :key="item.id">
-                                <a :href="route('services.show', item.slug)">{{ getTranslatedText(item.name_translations, item.name) }}</a>
+                                <Link :href="route('services.show', item.slug)">{{ getTranslatedText(item.name_translations, item.name) }}</Link>
                             </li>
                         </ul>
                     </li>
                     <li class="">
-                        <a
-                        :href="route('news_insights')"
+                        <Link
+                        :href="route('news-insights')"
                         data-i18n-key="header_news_insights"
-                        >News & Insights</a
+                        >News & Insights</Link
                         >
                     </li>
                     <li class="">
-                        <a
+                        <Link
                         :href="route('mission_and_values')"
                         data-i18n-key="header_mission_values"
-                        >Mission & Values</a
+                        >Mission & Values</Link
                         >
                     </li>
                     <li>
-                        <a :href="route('contact')" data-i18n-key="header_contact"
-                        >Contact</a
+                        <Link :href="route('contact')" data-i18n-key="header_contact"
+                        >Contact</Link
                         >
                     </li>
                     </ul>
                 </div>
                 <div class="main-menu-wrapper__right">
-                    <a
+                    <Link
                     :href="route('contact')"
                     class="thm-btn welcome-one__btn text-white"
                     data-i18n-key="get_a_quote"
-                    >Get a Quote</a
+                    >Get a Quote</Link
                     >
                 </div>
             </div>
@@ -216,7 +216,7 @@ const settings = computed(() => page.props.settings)
             <div class="page-header__inner">
                 <ul class="thm-breadcrumb list-unstyled">
                 <li>
-                    <a :href="route('home')" data-i18n-key="header_home">Home</a>
+                    <Link :href="route('home')" data-i18n-key="header_home">Home</Link>
                 </li>
                 <li class="notranslate" data-i18n-key="header_contact">
                     Contact
@@ -376,7 +376,7 @@ const settings = computed(() => page.props.settings)
             <div class="page-header__inner">
                 <ul class="thm-breadcrumb list-unstyled">
                 <li>
-                    <a :href="route('home')" data-i18n-key="header_home">Home</a>
+                    <Link :href="route('home')" data-i18n-key="header_home">Home</Link>
                 </li>
                 <li data-i18n-key="mission_values_breadcrumb">
                     Mission & Values
@@ -426,8 +426,8 @@ const settings = computed(() => page.props.settings)
                     The page you are looking for was never existed.
                 </p>
 
-                <a :href="route('home')" class="thm-btn error-page__btn mt-5"
-                    >back to home</a
+                <Link :href="route('home')" class="thm-btn error-page__btn mt-5"
+                    >back to home</Link
                 >
                 </div>
             </div>

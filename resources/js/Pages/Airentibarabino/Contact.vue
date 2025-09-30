@@ -1,13 +1,11 @@
 <script setup>
-    import FrontEndLayout from '@/Layouts/FrontEndLayout.vue';
-
     const props = defineProps({
         settings: Object
     });
 </script>
 
 <template>
-    <FrontEndLayout>
+    <div>
 
         <section class="contact-page">
             <div class="container">
@@ -199,5 +197,5 @@
             </div>
         </section>
 
-    </FrontEndLayout>
+    </div>
 </template>

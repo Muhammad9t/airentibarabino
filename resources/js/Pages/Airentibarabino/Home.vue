@@ -1,5 +1,4 @@
 <script setup>
-    import FrontEndLayout from '@/Layouts/FrontEndLayout.vue';
     import { useLanguage } from '@/Composables/useLanguage.js';
     import { Link } from '@inertiajs/vue3';
 
@@ -11,7 +10,7 @@
 </script>
 
 <template>
-    <FrontEndLayout>
+    <div>
 
         <section class="why-choose-one mt-5">
             <div class="container">
@@ -37,37 +36,37 @@
                         :key="service.id"
                         class="col-xl-6 mt-4"
                     >
-                        <div class="professional-card">
-                            <div class="why-choose-one__right m-0">
-                                <div class="section-title text-left">
+                    <div class="professional-card">
+                        <div class="why-choose-one__right m-0">
+                        <div class="section-title text-left">
                                     <h2 class="we-care__title">
                                         {{ getTranslatedText(service.name_translations, service.name) }}
-                                    </h2>
-                                </div>
+                            </h2>
+                        </div>
 
-                                <div class="why-choose-one__content mt-0">
-                                    <div class="why-choose-one__content-list">
-                                        <ul class="list-unstyled why-choose-one__points">
+                        <div class="why-choose-one__content mt-0">
+                            <div class="why-choose-one__content-list">
+                            <ul class="list-unstyled why-choose-one__points">
                                             <li v-for="subService in service.sub_services" :key="subService.id">
-                                                <div class="icon">
-                                                    <span class="icon-check"></span>
-                                                </div>
-                                                <div class="text">
-                                                    <p>{{ getTranslatedText(subService.title_translations, subService.title) }}</p>
-                                                </div>
-                                            </li>
-                                        </ul>
-                                    </div>
+                                <div class="icon">
+                                    <span class="icon-check"></span>
                                 </div>
+                                <div class="text">
+                                                    <p>{{ getTranslatedText(subService.title_translations, subService.title) }}</p>
+                                </div>
+                                </li>
+                            </ul>
                             </div>
-                            <hr />
+                        </div>
+                        </div>
+                        <hr />
                             <Link
                                 :href="`/service/${service.slug}`"
-                                class="thm-btn welcome-one__btn mt-4"
+                        class="thm-btn welcome-one__btn mt-4"
                             >
                                 LEGGI DI PIÙ
                             </Link>
-                        </div>
+                    </div>
                     </div>
                 </div>
             </div>
@@ -318,11 +317,11 @@
                         </div>
                         </div>
                         <div class="cta-one__right">
-                        <a
-                            href="contact.html"
+                        <Link
+                            :href="route('contact')"
                             class="thm-btn cta-one__btn"
                             data-i18n-key="lets_get_started"
-                            >let's get started</a
+                            >let's get started</Link
                         >
                         </div>
                     </div>
@@ -331,5 +330,5 @@
             </div>
         </section>
 
-    </FrontEndLayout>
+    </div>
 </template>

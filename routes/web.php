@@ -28,6 +28,10 @@ Route::get('/service/{service}', [ServiceController::class, 'show'])->name('serv
 Route::get('/api/services/menu', [ServiceController::class, 'getForMenu'])->name('services.menu');
 Route::get('/api/services/hierarchy', [ServiceController::class, 'getHierarchy'])->name('services.hierarchy');
 
+// Public blog routes
+Route::get('/news-insights', [BlogController::class, 'publicIndex'])->name('news-insights');
+Route::get('/news-insights/{blog:slug}', [BlogController::class, 'publicShow'])->name('news-insights.show');
+
 // Translation API
 Route::post('/api/translate', function (Request $request) {
     $data = $request->validate([

@@ -36,5 +36,8 @@ class DatabaseSeeder extends Seeder
         
         // Seed services
         $this->call(SimpleServiceSeeder::class);
+        
+        // Seed blogs
+        $this->call(BlogSeeder::class);
     }
 }

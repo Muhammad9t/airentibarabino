@@ -111,13 +111,19 @@ class SubServiceController extends Controller
         }
 
         // Handle points translations - prioritize English input if it's changed
-        if (isset($data['points']) && !empty($data['points']) && json_encode($data['points']) !== json_encode($subService->points)) {
-            // English points have changed, generate new translations
-            $sourceLanguage = $data['source_language'] ?? $this->translationService->detectLanguage($data['title'] ?? $subService->title);
-            $data['points_translations'] = $this->translationService->generateArrayTranslations($data['points'], $sourceLanguage);
-        } elseif (isset($data['points_translations']) && is_array($data['points_translations'])) {
-            // Use the provided translations directly (from multilingual tabs)
-            $data['points_translations'] = $data['points_translations'];
+        if (isset($data['points']) && is_array($data['points'])) {
+            if (json_encode($data['points']) !== json_encode($subService->points)) {
+                $sourceLanguage = $data['source_language'] ?? $this->translationService->detectLanguage($data['title'] ?? $subService->title);
+                $data['points_translations'] = $this->translationService->generateArrayTranslations($data['points'], $sourceLanguage);
+            } elseif (isset($data['points_translations']) && is_array($data['points_translations'])) {
+                $data['points_translations'] = array_intersect_key(
+                    $data['points_translations'],
+                    array_flip(array_keys($data['points']))
+                );
+            }
+        } else {
+            $data['points'] = null;
+            $data['points_translations'] = null;
         }
 
         unset($data['source_language']); // Remove from data before saving

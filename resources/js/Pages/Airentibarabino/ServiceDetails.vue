@@ -1,5 +1,4 @@
 <script setup>
-import FrontEndLayout from '@/Layouts/FrontEndLayout.vue';
 import ServicesHierarchy from '@/Components/ServicesHierarchy.vue';
 import { usePage } from '@inertiajs/vue3';
 import { computed } from 'vue';
@@ -10,7 +9,7 @@ const service = computed(() => page.props.service);
 </script>
 
 <template>
-  <FrontEndLayout>
+  <div>
     <section class="services-section py-5">
       <div class="container">
         <div class="row">
@@ -20,7 +19,7 @@ const service = computed(() => page.props.service);
         </div>
       </div>
     </section>
-  </FrontEndLayout>
+  </div>
 </template>
 
 <style scoped>
