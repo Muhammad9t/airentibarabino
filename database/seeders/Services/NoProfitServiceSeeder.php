@@ -47,21 +47,21 @@ class NoProfitServiceSeeder extends Seeder
                     'title' => 'Gestione attività commerciale',
                     'points' => [
                         'Gestion des affaires commerciales',
+                        'Regime fiscale di cui alla legge 398 del 1991.',
+                        'Tenuta contabilità e gestione delle relative scadenze periodiche;',
+                        'Tenuta libri contabili e fiscali;',
+                        'Compilazione e invio telematico dichiarazione Iva;',
+                        'Irap;'
                     ],
                     'sort_order' => 3,
                 ],
                 [
                     'title' => 'Gestione compensi per attività sportiva dilettantistica',
                     'points' => [
-                        'Redazione contratti di collaborazione',
+                        'Redazione contratti di collaborazione;',
                         'Ritenuta d\'acconto',
-                        'Compilazione e invio telematico formulare 770',
-                        'Tenuta libri contabili e fiscali',
-                        'Regime fiscale di cui alla legge 398 del 1991',
-                        'Tenuta contabilità e gestione delle relative scadenze periodiche',
-                        'Tenuta libri contabili e fiscali',
-                        'Compilazione e invio telematico dichiarazione Iva',
-                        'Irap',
+                        'Compilazione e invio telematico formulare 770.',
+                        'Tenuta libri contabili e fiscali;'
                     ],
                     'sort_order' => 4,
                 ],
@@ -76,16 +76,7 @@ class NoProfitServiceSeeder extends Seeder
                         'Scadenziario ed aggiornamento sulle novità legislative',
                     ],
                     'sort_order' => 5,
-                ],
-                [
-                    'title' => 'Contenzioso tributario',
-                    'points' => [
-                        'Esame della contestazione',
-                        'Assistenza in contraddittorio per la definizione con l\'Agenzia delle Entrate e altri Enti',
-                        'Redazione Ricorsi presso Corte di Giustizia Tributaria (ex Commissione Tributaria)',
-                    ],
-                    'sort_order' => 6,
-                ],
+                ]
             ],
         ];
 
@@ -99,13 +90,13 @@ class NoProfitServiceSeeder extends Seeder
     {
         // Generate slug from Italian name
         $slug = Str::slug($serviceData['name']);
-        
+
         // Generate translations for service name
         $nameTranslations = $this->translationService->generateTranslations($serviceData['name'], 'it');
-        
+
         // Generate translations for service description
         $descriptionTranslations = $this->translationService->generateTranslations($serviceData['description'], 'it');
-        
+
         // Create or update service
         $service = Service::updateOrCreate(
             ['slug' => $slug],
@@ -123,10 +114,10 @@ class NoProfitServiceSeeder extends Seeder
         foreach ($serviceData['sub_services'] as $subServiceData) {
             // Generate translations for sub-service title
             $titleTranslations = $this->translationService->generateTranslations($subServiceData['title'], 'it');
-            
+
             // Generate translations for sub-service points
             $pointsTranslations = $this->translationService->generateArrayTranslations($subServiceData['points'], 'it');
-            
+
             SubService::updateOrCreate(
                 [
                     'service_id' => $service->id,

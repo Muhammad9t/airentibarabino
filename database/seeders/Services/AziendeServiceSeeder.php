@@ -33,7 +33,7 @@ class AziendeServiceSeeder extends Seeder
                         'Redazione dei verbali e tenuta dei libri sociali',
                         'Aggiornamento periodico sulle novità legislative e calendario mensile',
                         'Riunioni e sessioni periodiche con il cliente, assistenza nella definizione delle strategie aziendali',
-                        'Meetings and periodic sessions with the client, assistance in defining business strategies',
+                        'Incontri e sessioni periodiche con il cliente, assistenza nella definizione delle strategie aziendali',
                     ],
                     'sort_order' => 1,
                 ],
@@ -79,15 +79,6 @@ class AziendeServiceSeeder extends Seeder
                     'sort_order' => 5,
                 ],
                 [
-                    'title' => 'Contenzioso tributario',
-                    'points' => [
-                        'Esame della contestazione',
-                        'Assistenza in contraddittorio per la definizione con l\'Agenzia delle Entrate e altri Enti',
-                        'Redazione Ricorsi presso Corte di Giustizia Tributaria (ex Commissione Tributaria)',
-                    ],
-                    'sort_order' => 6,
-                ],
-                [
                     'title' => 'Consulenza del lavoro',
                     'points' => [
                         'Contratti di lavoro',
@@ -95,7 +86,7 @@ class AziendeServiceSeeder extends Seeder
                         'Dichiarazioni contributive',
                         'Gestione del personale, studio di forme di fringe benefit e welfare aziendale',
                     ],
-                    'sort_order' => 7,
+                    'sort_order' => 6,
                 ],
             ],
         ];
@@ -110,13 +101,13 @@ class AziendeServiceSeeder extends Seeder
     {
         // Generate slug from Italian name
         $slug = Str::slug($serviceData['name']);
-        
+
         // Generate translations for service name
         $nameTranslations = $this->translationService->generateTranslations($serviceData['name'], 'it');
-        
+
         // Generate translations for service description
         $descriptionTranslations = $this->translationService->generateTranslations($serviceData['description'], 'it');
-        
+
         // Create or update service
         $service = Service::updateOrCreate(
             ['slug' => $slug],
@@ -134,10 +125,10 @@ class AziendeServiceSeeder extends Seeder
         foreach ($serviceData['sub_services'] as $subServiceData) {
             // Generate translations for sub-service title
             $titleTranslations = $this->translationService->generateTranslations($subServiceData['title'], 'it');
-            
+
             // Generate translations for sub-service points
             $pointsTranslations = $this->translationService->generateArrayTranslations($subServiceData['points'], 'it');
-            
+
             SubService::updateOrCreate(
                 [
                     'service_id' => $service->id,

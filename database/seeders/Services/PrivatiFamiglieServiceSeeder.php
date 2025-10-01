@@ -71,16 +71,7 @@ class PrivatiFamiglieServiceSeeder extends Seeder
                         'Airenti&Barabino si avvale di una società fiduciaria indipendente autorizzata ai sensi della Legge 23/11/1939 N.1966',
                     ],
                     'sort_order' => 5,
-                ],
-                [
-                    'title' => 'Contenzioso tributario',
-                    'points' => [
-                        'Esame della contestazione',
-                        'Assistenza in contraddittorio per la definizione con l\'Agenzia delle Entrate e altri Enti',
-                        'Redazione Ricorsi presso Corte di Giustizia Tributaria (ex Commissione Tributaria)',
-                    ],
-                    'sort_order' => 6,
-                ],
+                ]
             ],
         ];
 
@@ -94,13 +85,13 @@ class PrivatiFamiglieServiceSeeder extends Seeder
     {
         // Generate slug from Italian name
         $slug = Str::slug($serviceData['name']);
-        
+
         // Generate translations for service name
         $nameTranslations = $this->translationService->generateTranslations($serviceData['name'], 'it');
-        
+
         // Generate translations for service description
         $descriptionTranslations = $this->translationService->generateTranslations($serviceData['description'], 'it');
-        
+
         // Create or update service
         $service = Service::updateOrCreate(
             ['slug' => $slug],
@@ -118,10 +109,10 @@ class PrivatiFamiglieServiceSeeder extends Seeder
         foreach ($serviceData['sub_services'] as $subServiceData) {
             // Generate translations for sub-service title
             $titleTranslations = $this->translationService->generateTranslations($subServiceData['title'], 'it');
-            
+
             // Generate translations for sub-service points
             $pointsTranslations = $this->translationService->generateArrayTranslations($subServiceData['points'], 'it');
-            
+
             SubService::updateOrCreate(
                 [
                     'service_id' => $service->id,

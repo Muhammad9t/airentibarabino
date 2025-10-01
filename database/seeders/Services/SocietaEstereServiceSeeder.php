@@ -37,16 +37,7 @@ class SocietaEstereServiceSeeder extends Seeder
                         'Assistenza e consulenza per la costituzione di società in Italia da parte di non residenti, domiciliazione della sede presso lo studio e assistenza completa',
                     ],
                     'sort_order' => 1,
-                ],
-                [
-                    'title' => 'Contenzioso tributario',
-                    'points' => [
-                        'Esame della contestazione',
-                        'Assistenza in contraddittorio per la definizione con l\'Agenzia delle Entrate e altri Enti',
-                        'Redazione Ricorsi presso Corte di Giustizia Tributaria (ex Commissione Tributaria)',
-                    ],
-                    'sort_order' => 2,
-                ],
+                ]
             ],
         ];
 
@@ -60,13 +51,13 @@ class SocietaEstereServiceSeeder extends Seeder
     {
         // Generate slug from Italian name
         $slug = Str::slug($serviceData['name']);
-        
+
         // Generate translations for service name
         $nameTranslations = $this->translationService->generateTranslations($serviceData['name'], 'it');
-        
+
         // Generate translations for service description
         $descriptionTranslations = $this->translationService->generateTranslations($serviceData['description'], 'it');
-        
+
         // Create or update service
         $service = Service::updateOrCreate(
             ['slug' => $slug],
@@ -84,10 +75,10 @@ class SocietaEstereServiceSeeder extends Seeder
         foreach ($serviceData['sub_services'] as $subServiceData) {
             // Generate translations for sub-service title
             $titleTranslations = $this->translationService->generateTranslations($subServiceData['title'], 'it');
-            
+
             // Generate translations for sub-service points
             $pointsTranslations = $this->translationService->generateArrayTranslations($subServiceData['points'], 'it');
-            
+
             SubService::updateOrCreate(
                 [
                     'service_id' => $service->id,
