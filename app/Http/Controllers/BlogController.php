@@ -49,12 +49,12 @@ class BlogController extends Controller
 
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('blogs', 'public');
-            $data['image'] = "/storage/" . $path;
+            $data['image'] = $path;
         }
 
         // Detect source language if not provided
         $sourceLanguage = $data['source_language'] ?? $this->translationService->detectLanguage($data['title']);
-        
+
         // Generate translations
         $data['description_translations'] = $this->translationService->generateTranslations($data['description'], $sourceLanguage);
 
@@ -105,7 +105,7 @@ class BlogController extends Controller
                 Storage::disk('public')->delete(str_replace('/storage/', '', $blog->image));
             }
             $path = $request->file('image')->store('blogs', 'public');
-            $data['image'] = "/storage/" . $path;
+            $data['image'] = $path;
         } else {
             unset($data['image']);
         }
@@ -114,8 +114,8 @@ class BlogController extends Controller
         if (isset($data['description']) && !empty($data['description'])) {
             $sourceLanguage = $data['source_language'] ?? $this->translationService->detectLanguage($data['description']);
             $data['description_translations'] = $this->translationService->updateTranslations(
-                $blog->description_translations ?? [], 
-                $data['description'], 
+                $blog->description_translations ?? [],
+                $data['description'],
                 $sourceLanguage
             );
         }

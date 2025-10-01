@@ -30,7 +30,7 @@ class NoProfitServiceSeeder extends Seeder
                 [
                     'title' => 'Associazioni, ASD, Fondazioni, Enti del Terzo Settore ETS',
                     'points' => [
-                        'Consulenza del lavoro ed elaborazione cedolini paga E poi:',
+                        'Consulenza del lavoro ed elaborazione cedolini paga',
                     ],
                     'sort_order' => 1,
                 ],
