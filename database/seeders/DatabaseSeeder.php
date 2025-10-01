@@ -33,10 +33,10 @@ class DatabaseSeeder extends Seeder
 
         // Seed settings
         $this->call(SettingSeeder::class);
-        
+
         // Seed services
-        $this->call(Database\Seeders\Services\ServiceSeederFactory::class);
-        
+        $this->call(Services\ServiceSeederFactory::class);
+
         // Seed blogs
     }
 }
