@@ -14,7 +14,7 @@
     <link rel="icon" type="image/png" sizes="16x16" href="{{ asset('/images/favicons/favicon-16x16.png') }}"/>
 
     <link rel="manifest" href="{{ asset('/images/favicons/site.webmanifest') }}"/>
-    <meta name="description" content="outscalers HTML Template For Business" />
+    <meta name="description" content="Consultant Advisor Company providing expert business consulting, financial advisory, strategic planning, and professional services to help businesses grow and succeed." />
     <meta name="google" content="notranslate" />
 
     <!-- Fonts -->
