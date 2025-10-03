@@ -180,7 +180,7 @@ const settings = computed(() => page.props.settings)
         <section v-if="componentName == 'About'" class="page-header">
             <div
                 class="page-header-bg"
-                style="background-image: url(/images/backgrounds/own-hero.png)" >
+                style="background-image: url(/images/backgrounds/about-us.jpg)" >
             </div>
             <div class="container">
                 <div class="page-header__inner">
