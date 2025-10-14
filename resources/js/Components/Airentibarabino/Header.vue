@@ -1,7 +1,7 @@
 <script setup>
 
 import { usePage, Link } from '@inertiajs/vue3';
-import { computed } from 'vue'
+import { onMounted, nextTick, computed } from 'vue'
 import { useLanguage } from '../../Composables/useLanguage.js'
 
 const page = usePage();
@@ -15,6 +15,38 @@ const componentName = computed(() => {
 const services =  computed(() => page.props.services ?? [])
 const service =  computed(() => page.props.service ?? [])
 const settings = computed(() => page.props.settings)
+
+onMounted(async () => {
+  await nextTick();
+  if ($(".mobile-nav__toggler").length) {
+    $(".mobile-nav__toggler").off("click").on("click", function (e) {
+      e.preventDefault();
+      $(".mobile-nav__wrapper").toggleClass("expanded");
+      $("body").toggleClass("locked");
+    });
+  }
+  if ($(".mobile-nav__overlay, .mobile-nav__close").length) {
+    $(".mobile-nav__overlay, .mobile-nav__close").off("click").on("click", function (e) {
+      e.preventDefault();
+      $(".mobile-nav__wrapper").removeClass("expanded");
+      $("body").removeClass("locked");
+    });
+  }
+  const $firstMenu = $(".main-menu__list").first();
+  const $mobileContainer = $(".mobile-nav__container");
+
+  if ($firstMenu.length && $mobileContainer.length) {
+    $mobileContainer.empty();
+    $firstMenu.clone().appendTo($mobileContainer);
+
+    $mobileContainer.find(".dropdown > a").off("click").on("click", function (e) {
+      e.preventDefault();
+      const $li = $(this).parent();
+      $li.toggleClass("open");
+      $li.find("> ul").slideToggle(200);
+    });
+  }
+});
 
 </script>
 
