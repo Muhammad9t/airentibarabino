@@ -1,5 +1,6 @@
 import '../css/app.css';
 import './bootstrap';
+import 'bootstrap/dist/js/bootstrap.bundle.min.js';
 
 import { createInertiaApp } from '@inertiajs/vue3';
 import { resolvePageComponent } from 'laravel-vite-plugin/inertia-helpers';
@@ -16,12 +17,12 @@ createInertiaApp({
             `./Pages/${name}.vue`,
             import.meta.glob('./Pages/**/*.vue'),
         );
-        
+
         // Wrap all pages with PersistentLayout except admin pages
         if (!name.startsWith('Admin/')) {
             page.default.layout = PersistentLayout;
         }
-        
+
         return page;
     },
     setup({ el, App, props, plugin }) {
