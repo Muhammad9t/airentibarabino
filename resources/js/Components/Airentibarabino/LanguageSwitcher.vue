@@ -78,7 +78,7 @@ watch(language, (newLang) => {
 
 <template>
     <div class="floating-lang-switcher">
-        <select id="lang-switcher" class="lang-switcher-select">
+        <select id="lang-switcher">
             <option value="it">🇮🇹 Italiano</option>
             <option value="en">🇬🇧 English</option>
             <option value="fr">🇫🇷 Français</option>
