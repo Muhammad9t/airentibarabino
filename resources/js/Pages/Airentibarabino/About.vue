@@ -168,7 +168,7 @@
             </div>
         </section>
 
-        <section class="welcome-three">
+        <!-- <section class="welcome-three">
             <div class="container">
             <div class="row">
                 <div class="col-lg-6">
@@ -183,7 +183,7 @@
                 </div>
             </div>
             </div>
-        </section>
+        </section> -->
 
     </div>
 </template>
