@@ -56,7 +56,7 @@
   "contact_us_text": "By phone or email we are at your disposal and you can find us in Turin and Genoa.",
   "lets_get_started": "let's get started",
   "we_are_on_social_media": "We are on social media as well",
-  "join_us_there": "Join us there",
+  "join_us_here": "Join us here",
   "contact_turin": "Contact",
   "turin_address": "Turin, Corso Vittorio Emanuele II 52",
   "turin_email": "torino@airentiebarabino.com",
@@ -163,7 +163,7 @@
 
   "institutional_activity_management_title": "Associations, ASDs, Foundations, Third Sector Entities ETS",
   "institutional_activity_management_li1": "Employment consulting and payroll processing And then:",
-  
+
   "business_management_title": "Management of institutional activities",
   "business_management_li1": "Drafting and registration of the statute",
   "business_management_li2": "Correct bookkeeping;",
@@ -210,7 +210,7 @@
   "fam_tax_returns_li1": "Tax assistance in the field of direct and indirect taxes",
   "fam_tax_returns_li2": "Income tax returns, inheritance returns",
   "fam_tax_returns_li3": "Tax assistance for ownership and management of assets held abroad by Italian citizens (RW Form, Income PF Form)",
-  
+
   "fam_real_estate_title": "Real Estate Management",
   "fam_real_estate_li1": "Advice on the taxation of rentals and sales",
   "fam_real_estate_li2": "Calculations, declarations, payments for local taxes (IMU, TASI)",
@@ -252,5 +252,7 @@
   "30_years_experience": "30 Years of Working Experience",
   "years_of_working_experience": "Years of Working Experience",
 
-  "all_rights_reserved_designed_by": "All rights reserved | Designed and developed by"
-} 
+  "all_rights_reserved_designed_by": "All rights reserved | Designed and developed by",
+
+  "value_added_tax": "VAT Number 03765630102 | "
+}

@@ -44,10 +44,10 @@ class ServiceController extends Controller
 
         // Detect source language if not provided
         $sourceLanguage = $data['source_language'] ?? $this->translationService->detectLanguage($data['name']);
-        
+
         // Generate translations
         $data['name_translations'] = $this->translationService->generateTranslations($data['name'], $sourceLanguage);
-        
+
         if (!empty($data['description'])) {
             $data['description_translations'] = $this->translationService->generateTranslations($data['description'], $sourceLanguage);
         }
@@ -65,8 +65,8 @@ class ServiceController extends Controller
      */
     public function show(Service $service)
     {
-        $service->load('subServices');
-        
+        $service->load(['subServices' => fn($query) => $query->active()->orderBy('sort_order')]);
+
         return inertia('Airentibarabino/ServiceDetails', [
             'service' => $service,
         ]);
@@ -93,8 +93,8 @@ class ServiceController extends Controller
             // English name has changed, generate new translations
             $sourceLanguage = $data['source_language'] ?? $this->translationService->detectLanguage($data['name']);
             $data['name_translations'] = $this->translationService->updateTranslations(
-                $service->name_translations ?? [], 
-                $data['name'], 
+                $service->name_translations ?? [],
+                $data['name'],
                 $sourceLanguage
             );
         } elseif (isset($data['name_translations']) && is_array($data['name_translations'])) {
@@ -106,8 +106,8 @@ class ServiceController extends Controller
             // English description has changed, generate new translations
             $sourceLanguage = $data['source_language'] ?? $this->translationService->detectLanguage($data['description']);
             $data['description_translations'] = $this->translationService->updateTranslations(
-                $service->description_translations ?? [], 
-                $data['description'], 
+                $service->description_translations ?? [],
+                $data['description'],
                 $sourceLanguage
             );
         } elseif (isset($data['description_translations']) && is_array($data['description_translations'])) {
@@ -156,7 +156,7 @@ class ServiceController extends Controller
     public function subServices(Service $service)
     {
         $subServices = $service->subServices()->orderBy('sort_order')->get();
-        
+
         return inertia('Admin/SubServices', [
             'service' => $service,
             'subServices' => $subServices,

@@ -56,7 +56,7 @@
   "contact_us_text": "Par téléphone ou par e-mail, nous sommes à votre disposition et vous pouvez nous trouver à Turin et à Gênes.",
   "lets_get_started": "commençons",
   "we_are_on_social_media": "Nous sommes aussi sur les réseaux sociaux",
-  "join_us_there": "Rejoignez-nous là-bas",
+  "join_us_here": "Rejoignez-nous ici",
   "contact_turin": "Contact",
   "turin_address": "Turin, Corso Vittorio Emanuele II 52",
   "turin_email": "torino@airentiebarabino.com",
@@ -249,5 +249,7 @@
 
   "30_years_experience": "40 ans d'expérience professionnelle",
   "years_of_working_experience": "Années d'expérience professionnelle",
-  "all_rights_reserved_designed_by": "Tous droits réservés | Conçu et développé par"
-} 
+  "all_rights_reserved_designed_by": "Tous droits réservés | Conçu et développé par",
+
+  "value_added_tax": "Numéro de TVA 03765630102 | "
+}

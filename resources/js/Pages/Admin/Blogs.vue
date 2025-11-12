@@ -77,7 +77,6 @@
     }
 
     function openViewModal(blog) {
-        console.log("Open pass");
         viewBlog.value = blog
         showViewModal.value = true
     }
@@ -161,7 +160,10 @@
                             <tr v-for="(blog, index) in filteredBlogs" :key="blog.id">
                                 <td>{{ index + 1 }}</td>
                                 <td>
-                                    <img :src="blog.image" alt="Blog Image" width="80" class="rounded" />
+                                    <img :src="blog.image ? `/storage/app/public/${blog.image}` : ''"
+                                         alt="Blog Image"
+                                         width="80"
+                                         class="rounded" />
                                 </td>
                                 <td>{{ blog.title }}</td>
                                 <td>

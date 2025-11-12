@@ -1,13 +1,22 @@
 <script setup>
 import { usePage, Link } from "@inertiajs/vue3";
 import { computed } from "vue";
+import { useLanguage } from "../../Composables/useLanguage.js";
 
 const page = usePage();
 const settings = computed(() => page.props.settings);
 const services = computed(() => page.props.services ?? []);
-
 const { getTranslatedText } = useLanguage();
-import { useLanguage } from "../../Composables/useLanguage.js";
+
+const formattedFooterDescription = computed(() => {
+    const desc = settings.value?.footer_description;
+    if (!desc) return '';
+    return desc.replace(
+        /(\d{11})/,
+        '<span class="text-primary">$1</span> | '
+    );
+});
+
 </script>
 
 <template>
@@ -29,10 +38,10 @@ import { useLanguage } from "../../Composables/useLanguage.js";
                             We are on social media as well
                         </h3>
                         <a
-                            href="tel:926668880000"
+                            href="tel:+39.011.506.3073"
                             class="site-footer__top-left-phone"
-                            data-i18n-key="join_us_there"
-                            >Join us there</a
+                            data-i18n-key="join_us_here"
+                            >Join us here</a
                         >
                     </div>
                     <div class="site-footer__top-right">
@@ -268,26 +277,31 @@ import { useLanguage } from "../../Composables/useLanguage.js";
             <div class="container">
                 <div class="row">
                     <div class="col-xl-12">
-                        <div class="site-footer__bottom-inner d-flex">
-                            <p class="site-footer__bottom-text text-white">
+                        <div class="site-footer__bottom-inner d-flex align-items-center">
+                            <p class="site-footer__bottom-text text-white notranslate"
+                                v-html="formattedFooterDescription"
+                            >
+                            </p>
+                            &nbsp;
+                            <p class="site-footer__bottom-text text-white mb-0">
                                 © {{ new Date().getFullYear() }}
                             </p>
                             &nbsp;
                             <p
-                                class="site-footer__bottom-text text-white notranslate"
+                                class="site-footer__bottom-text text-white mb-0 notranslate"
                                 data-i18n-key="all_rights_reserved_designed_by"
                             >
                                 All rights reserved | Designed and developed by
                             </p>
                             &nbsp;
-                            <p class="site-footer__bottom-text text-white">
+                            <p class="site-footer__bottom-text text-white mb-0">
                                 <a
                                     target="_blank"
                                     href="https://outscalers.com/"
                                     class="text-primary"
                                 >
-                                    Outscalers</a
-                                >
+                                    Outscalers
+                                </a>
                             </p>
                         </div>
                     </div>

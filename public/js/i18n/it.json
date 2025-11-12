@@ -56,7 +56,7 @@
   "contact_us_text": "Telefonicamente o via email siamo a vostra disposizione e ci trovate a Torino e Genova.",
   "lets_get_started": "iniziamo",
   "we_are_on_social_media": "Siamo anche sui social",
-  "join_us_there": "Unisciti a noi lì",
+  "join_us_here": "Unisciti a noi qui",
   "contact_turin": "Contatti",
   "turin_address": "Torino, Corso Vittorio Emanuele II 52",
   "turin_email": "torino@airentiebarabino.com",
@@ -112,7 +112,7 @@
   "companies_intro": "Forniamo servizi di consulenza e contabilità per le aziende...",
   "service_1_title": "Consulenza societaria",
   "service_1_desc": "Redazione di statuti, fusioni, acquisizioni, ecc.",
-  
+
   "tax_corporate_budget_consultancy_title": "Consulenza fiscale, societaria e di bilancio",
   "tax_corporate_budget_consultancy_intro": "Assistenza e consulenza per il completo e corretto adempimento di tutti gli obblighi civili e fiscali",
   "tax_corporate_budget_consultancy_li1": "Redazione dei verbali e tenuta dei libri sociali",
@@ -256,5 +256,7 @@
   "30_years_experience": "30 anni di esperienza lavorativa",
   "years_of_working_experience": "Anni di esperienza lavorativa",
 
-  "all_rights_reserved_designed_by": "Tutti i diritti riservati | Progettato e sviluppato da"
-} 
+  "all_rights_reserved_designed_by": "Tutti i diritti riservati | Progettato e sviluppato da",
+
+  "value_added_tax": "Partita IVA 03765630102 | "
+}

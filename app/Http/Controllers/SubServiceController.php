@@ -51,7 +51,7 @@ class SubServiceController extends Controller
             $sourceLanguage = $data['source_language'] ?? $this->translationService->detectLanguage($data['title']);
             $data['title_translations'] = $this->translationService->generateTranslations($data['title'], $sourceLanguage);
         }
-        
+
         // Handle points translations - if points_translations is provided, use it directly
         if (isset($data['points_translations']) && is_array($data['points_translations'])) {
             // Use the provided translations directly

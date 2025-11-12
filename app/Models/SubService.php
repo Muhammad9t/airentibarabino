@@ -32,6 +32,12 @@ class SubService extends Model
         return $this->belongsTo(Service::class);
     }
 
+
+    public function scopeActive($query)
+    {
+        return $query->where('status', 'active');
+    }
+
     // Helper method to get points as array
     public function getPointsArrayAttribute()
     {
@@ -79,16 +85,16 @@ class SubService extends Model
     public function getTranslated(string $field, string $language = 'en')
     {
         $translationsField = $field . '_translations';
-        
+
         if ($this->$translationsField && isset($this->$translationsField[$language])) {
             return $this->$translationsField[$language];
         }
-        
+
         // Fallback to English
         if ($this->$translationsField && isset($this->$translationsField['en'])) {
             return $this->$translationsField['en'];
         }
-        
+
         // Fallback to original field
         return $this->$field ?? ($field === 'points' ? [] : '');
     }

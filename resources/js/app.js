@@ -19,7 +19,7 @@ createInertiaApp({
         );
 
         // Wrap all pages with PersistentLayout except admin pages
-        if (!name.startsWith('Admin/')) {
+        if (!name.startsWith('Admin/') && !name.startsWith('Profile/') && !name.startsWith('Auth/')) {
             page.default.layout = PersistentLayout;
         }
 

@@ -56,16 +56,16 @@ class Service extends Model
     public function getTranslated(string $field, string $language = 'en'): string
     {
         $translationsField = $field . '_translations';
-        
+
         if ($this->$translationsField && isset($this->$translationsField[$language])) {
             return $this->$translationsField[$language];
         }
-        
+
         // Fallback to English
         if ($this->$translationsField && isset($this->$translationsField['en'])) {
             return $this->$translationsField['en'];
         }
-        
+
         // Fallback to original field
         return $this->$field ?? '';
     }
@@ -91,4 +91,12 @@ class Service extends Model
     {
         return $this->getTranslated('description', $language);
     }
+
+    public function resolveRouteBinding($value, $field = null)
+    {
+        return $this->where($field ?? $this->getRouteKeyName(), $value)
+            ->where('status', 'active')
+            ->firstOrFail();
+    }
+
 }
